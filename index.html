@@ -56,7 +56,7 @@
       display: flex;
       gap: 16px;
       align-items: center;
-      margin-bottom: 18px;
+      margin-bottom: 16px;
     }
 
     .avatar{
@@ -82,7 +82,9 @@
       display: flex;
       align-items: baseline;
       gap: 12px;
-      flex-wrap: wrap;
+      flex-wrap: nowrap;
+      min-width: 0;
+      width: 100%;
     }
 
     .nameRow h1{
@@ -91,12 +93,19 @@
       font-weight: 600;
       line-height: 1.05;
       letter-spacing: 0.3px;
+      flex: 0 0 auto;
+      white-space: nowrap;
     }
 
     .handle{
-      font-size: 1.05rem;
+      font-size: 1.12rem;
       color: var(--text-dimmer);
       line-height: 1.1;
+      flex: 1 1 auto;          /* fill remaining header width */
+      min-width: 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis; /* if viewport is tiny */
     }
 
     /* ---------- CHIPS ---------- */
@@ -113,7 +122,7 @@
       background: rgba(255,255,255,0.06);
       padding: 8px 12px;
       border-radius: 999px;
-      font-size: 0.82rem;
+      font-size: 0.9rem;
       color: var(--text-dim);
     }
 
@@ -129,8 +138,9 @@
     a.button{
       display: flex;
       align-items: center;
+      justify-content: space-between;
       gap: 12px;
-      padding: 14px;
+      padding: 14px 16px;
       border-radius: 14px;
       text-decoration: none;
       color: #fff;
@@ -144,35 +154,23 @@
       transform: translateY(-1px);
     }
 
-    .icon{
-      width: 22px;
-      height: 22px;
-      flex: 0 0 22px;
-      opacity: 0.95;
-    }
-
     .label{
       display: flex;
       flex-direction: column;
       align-items: flex-start;
-      flex: 1;
       min-width: 0;
     }
 
     .label strong{
-      font-size: 1rem;
+      font-size: 1.05rem;
       font-weight: 600;
-    }
-
-    .label span{
-      font-size: 0.82rem;
-      color: var(--text-dim);
-      margin-top: 2px;
+      line-height: 1.2;
     }
 
     .arrow{
       opacity: 0.6;
       font-size: 1.1rem;
+      flex: 0 0 auto;
     }
 
     /* ---------- SECTIONS ---------- */
@@ -205,32 +203,37 @@
 
     .mediaCard{
       display: grid;
-      grid-template-columns: 86px 1fr;
-      gap: 12px;
+      grid-template-columns: 120px 1fr; /* bigger image column */
+      gap: 14px;
       align-items: center;
       border: 1px solid var(--border);
       background: rgba(255,255,255,0.05);
       border-radius: 16px;
-      padding: 12px;
+      padding: 14px;
     }
 
     .mediaThumb{
-      width: 86px;
-      height: 86px;
+      width: 120px;
+      height: 120px;
       border-radius: 14px;
-      object-fit: cover;
       border: 1px solid var(--border);
+      background: rgba(255,255,255,0.04);
+
+      object-fit: contain;     /* show full cover */
+      object-position: center;
     }
 
     .mediaTitle{
-      margin: 0 0 4px 0;
+      margin: 0 0 6px 0;
       font-weight: 600;
+      font-size: 1.05rem;
     }
 
     .mediaSub{
       margin: 0;
-      font-size: 0.95rem;
+      font-size: 0.98rem;
       color: var(--text-dim);
+      line-height: 1.35;
     }
 
     footer{
@@ -244,6 +247,14 @@
       body{ padding: 28px 12px; }
       .avatar{ width: 72px; height: 72px; }
       .nameRow h1{ font-size: 2.1rem; }
+
+      .mediaCard{
+        grid-template-columns: 110px 1fr;
+      }
+      .mediaThumb{
+        width: 110px;
+        height: 110px;
+      }
     }
   </style>
 </head>
@@ -256,39 +267,39 @@
       <img class="avatar" src="assets/profile.webp" alt="Profile photo">
       <div class="profileText">
         <div class="nameRow">
-          <h1>Roberto</h1>
+          <h1>Roberto💿</h1>
           <div class="handle">@egemago</div>
         </div>
       </div>
     </div>
 
-    <!-- CHIPS -->
-    <div class="chipRow">
-      <div class="chip">Pronouns: he/him</div>
-      <div class="chip">Age: 20</div>
-      <div class="chip">City: Baltimore</div>
-      <div class="chip">Languages: EN / ES</div>
+    <!-- CHIPS (values only) -->
+    <div class="chipRow" aria-label="Quick facts">
+      <div class="chip">he/him</div>
+      <div class="chip">20</div>
+      <div class="chip">Baltimore</div>
+      <div class="chip">EN / ES</div>
     </div>
 
-    <!-- LINKS -->
-    <section class="links">
+    <!-- LINKS (no usernames/subtitles) -->
+    <section class="links" aria-label="Social links">
       <a class="button" href="https://x.com/egemago" target="_blank" rel="noopener">
-        <span class="label"><strong>X / Twitter</strong><span>@egemago</span></span>
+        <span class="label"><strong>Twitter</strong></span>
         <span class="arrow">↗</span>
       </a>
 
       <a class="button" href="https://letterboxd.com/stoneyend/" target="_blank" rel="noopener">
-        <span class="label"><strong>Letterboxd</strong><span>stoneyend</span></span>
+        <span class="label"><strong>Letterboxd</strong></span>
         <span class="arrow">↗</span>
       </a>
 
       <a class="button" href="https://rateyourmusic.com/~egemago" target="_blank" rel="noopener">
-        <span class="label"><strong>Rate Your Music</strong><span>~egemago</span></span>
+        <span class="label"><strong>RYM</strong></span>
         <span class="arrow">↗</span>
       </a>
 
       <a class="button" href="https://www.last.fm/user/egemago" target="_blank" rel="noopener">
-        <span class="label"><strong>last.fm</strong><span>egemago</span></span>
+        <span class="label"><strong>last.fm</strong></span>
         <span class="arrow">↗</span>
       </a>
     </section>
@@ -301,11 +312,11 @@
 
     <!-- I AM -->
     <div class="sectionTitle">I Am</div>
-    <div class="mediaGrid">
+    <div class="mediaGrid" aria-label="Currently reading and watching">
       <div class="mediaCard">
         <img class="mediaThumb" src="assets/wuthering-heights.jpeg" alt="Wuthering Heights by Emily Brontë">
         <div>
-          <p class="mediaTitle">I Am Currently Reading</p>
+          <p class="mediaTitle">Currently Reading</p>
           <p class="mediaSub">Wuthering Heights by Emily Brontë</p>
         </div>
       </div>
@@ -313,7 +324,7 @@
       <div class="mediaCard">
         <img class="mediaThumb" src="assets/twin-peaks.jpeg" alt="Twin Peaks">
         <div>
-          <p class="mediaTitle">I Am Currently Rewatching</p>
+          <p class="mediaTitle">Currently Rewatching</p>
           <p class="mediaSub">Twin Peaks</p>
         </div>
       </div>
