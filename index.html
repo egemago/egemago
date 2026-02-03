@@ -27,7 +27,7 @@
       font-family: 'Inter', sans-serif;
       color: #f2f2f2;
 
-      /* Subtle gradient + background image (Option 3) */
+      /* Option 3 background: crop + subtle gradient */
       background:
         radial-gradient(circle at center, #0b1020 0%, #000 70%),
         linear-gradient(var(--overlay), var(--overlay)),
@@ -57,10 +57,26 @@
       letter-spacing: 0.4px;
     }
 
-    .subtitle {
-      margin: 0 0 22px;
-      opacity: 0.85;
-      font-size: 0.95rem;
+    /* Tag line */
+    .tags {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 22px;
+      font-size: 0.75rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      opacity: 0.7;
+    }
+
+    .tags span::after {
+      content: "•";
+      margin-left: 10px;
+      opacity: 0.6;
+    }
+
+    .tags span:last-child::after {
+      content: "";
     }
 
     section {
@@ -77,6 +93,8 @@
       color: #ffffff;
       background: var(--button);
       border: 1px solid var(--border);
+      font-weight: 500;
+      letter-spacing: 0.02em;
       transition: background 0.2s ease, transform 0.15s ease;
     }
 
@@ -93,7 +111,7 @@
     footer {
       margin-top: 22px;
       font-size: 0.75rem;
-      opacity: 0.65;
+      opacity: 0.6;
     }
 
     /* Mobile spacing */
@@ -112,12 +130,35 @@
 <body>
   <main>
     <h1>egemago</h1>
-    <p class="subtitle">music • links • interests</p>
+
+    <p class="tags">
+      <span>music</span>
+      <span>links</span>
+      <span>interests</span>
+    </p>
 
     <section>
-      <a class="button" href="#" target="_blank" rel="noopener">Spotify</a>
-      <a class="button" href="#" target="_blank" rel="noopener">Twitter / X</a>
-      <a class="button" href="#" target="_blank" rel="noopener">Straw.page</a>
+      <!-- Replace these href values with your real links -->
+      <a class="button"
+         href="https://open.spotify.com"
+         target="_blank"
+         rel="noopener">
+         Spotify
+      </a>
+
+      <a class="button"
+         href="https://twitter.com"
+         target="_blank"
+         rel="noopener">
+         Twitter / X
+      </a>
+
+      <a class="button"
+         href="https://egemago.straw.page"
+         target="_blank"
+         rel="noopener">
+         Straw.page
+      </a>
     </section>
 
     <footer>
