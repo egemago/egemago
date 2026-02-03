@@ -530,126 +530,169 @@
   </main>
 
   <script>
-    // One track plays at a time + robust seek (desktop + mobile).
-    const tracks = Array.from(document.querySelectorAll('[data-track]'));
+  // One track plays at a time + robust desktop/mobile seek.
+  const tracks = Array.from(document.querySelectorAll('[data-track]'));
 
-    const fmt = (t) => {
-      if (!isFinite(t) || t < 0) return "0:00";
-      const m = Math.floor(t / 60);
-      const s = Math.floor(t % 60);
-      return `${m}:${String(s).padStart(2, "0")}`;
-    };
+  const fmt = (t) => {
+    if (!isFinite(t) || t < 0) return "0:00";
+    const m = Math.floor(t / 60);
+    const s = Math.floor(t % 60);
+    return `${m}:${String(s).padStart(2, "0")}`;
+  };
 
-    function setButton(card, playing){
-      const icon = card.querySelector('.playIcon');
-      icon.textContent = playing ? "❚❚" : "▶";
-    }
+  function setButton(card, playing){
+    const icon = card.querySelector('.playIcon');
+    icon.textContent = playing ? "❚❚" : "▶";
+  }
 
-    function stopOthers(exceptAudio){
-      tracks.forEach(card => {
-        const a = card.querySelector('audio');
-        if (a !== exceptAudio) {
-          a.pause();
-          a.currentTime = 0;
-          card.querySelector('.scrub').value = 0;
-          card.querySelector('.curTime').textContent = "0:00";
-          setButton(card, false);
-        }
-      });
-    }
-
+  function stopOthers(exceptAudio){
     tracks.forEach(card => {
-      const audio = card.querySelector('audio');
-      const playBtn = card.querySelector('.playBtn');
-      const scrub = card.querySelector('.scrub');
-      const cur = card.querySelector('.curTime');
-      const dur = card.querySelector('.durTime');
+      const a = card.querySelector('audio');
+      if (a !== exceptAudio) {
+        a.pause();
+        a.currentTime = 0;
 
-      let isSeeking = false;
+        const scrub = card.querySelector('.scrub');
+        const cur = card.querySelector('.curTime');
 
-      audio.addEventListener('loadedmetadata', () => {
-        dur.textContent = fmt(audio.duration);
-      });
-
-      audio.addEventListener('timeupdate', () => {
-        if (!audio.duration) return;
-        if (!isSeeking) {
-          const pct = (audio.currentTime / audio.duration) * 100;
-          scrub.value = String(pct);
-        }
-        cur.textContent = fmt(audio.currentTime);
-      });
-
-      audio.addEventListener('ended', () => {
-        setButton(card, false);
         scrub.value = 0;
         cur.textContent = "0:00";
-      });
+        setButton(card, false);
+      }
+    });
+  }
 
-      playBtn.addEventListener('click', async () => {
-        if (audio.paused) {
-          stopOthers(audio);
-          try {
-            await audio.play();
-            setButton(card, true);
-          } catch (e) {
-            console.warn("Audio play failed:", e);
-            setButton(card, false);
-          }
-        } else {
-          audio.pause();
-          setButton(card, false);
-        }
-      });
-
-      // ✅ Robust seeking across desktop + mobile using Pointer Events.
-      // We compute the desired time from the pointer position, not just the range "input" event.
-      function seekFromEvent(e){
-        if (!audio.duration) return;
-        const rect = scrub.getBoundingClientRect();
-        const clientX = (e.touches && e.touches[0]) ? e.touches[0].clientX : e.clientX;
-        const x = Math.min(Math.max(clientX - rect.left, 0), rect.width);
-        const pct = rect.width ? (x / rect.width) : 0;
-        audio.currentTime = pct * audio.duration;
-        scrub.value = String(pct * 100);
-        cur.textContent = fmt(audio.currentTime);
+  // Ensure metadata/duration is available; if not, load and wait for it.
+  function ensureMetadata(audio, durEl) {
+    return new Promise((resolve) => {
+      // HAVE_METADATA = 1, but duration is reliable once metadata is loaded.
+      if (audio.readyState >= 1 && isFinite(audio.duration) && audio.duration > 0) {
+        if (durEl) durEl.textContent = fmt(audio.duration);
+        resolve();
+        return;
       }
 
-      // Keep input handler too (keyboard accessibility)
-      scrub.addEventListener('input', () => {
-        if (!audio.duration) return;
-        const pct = Number(scrub.value) / 100;
-        audio.currentTime = pct * audio.duration;
-      });
+      const onMeta = () => {
+        if (durEl) durEl.textContent = fmt(audio.duration);
+        audio.removeEventListener('loadedmetadata', onMeta);
+        resolve();
+      };
 
-      // Pointer-based dragging/clicking
-      scrub.addEventListener('pointerdown', (e) => {
-        isSeeking = true;
-        scrub.setPointerCapture?.(e.pointerId);
-        seekFromEvent(e);
-      });
+      audio.addEventListener('loadedmetadata', onMeta, { once: true });
 
-      scrub.addEventListener('pointermove', (e) => {
-        if (!isSeeking) return;
-        seekFromEvent(e);
-      });
-
-      scrub.addEventListener('pointerup', (e) => {
-        if (!isSeeking) return;
-        seekFromEvent(e);
-        isSeeking = false;
-        scrub.releasePointerCapture?.(e.pointerId);
-      });
-
-      scrub.addEventListener('pointercancel', () => {
-        isSeeking = false;
-      });
-
-      // Extra safety: clicking the bar (not dragging) should still seek on desktop
-      scrub.addEventListener('click', (e) => {
-        seekFromEvent(e);
-      });
+      // Kick the browser to actually fetch metadata.
+      // (Some desktops won't load it until "load()" or "play()".)
+      try { audio.load(); } catch (_) {}
     });
-  </script>
+  }
+
+  tracks.forEach(card => {
+    const audio = card.querySelector('audio');
+    const playBtn = card.querySelector('.playBtn');
+    const scrub = card.querySelector('.scrub');
+    const cur = card.querySelector('.curTime');
+    const dur = card.querySelector('.durTime');
+
+    let isSeeking = false;
+
+    // Proactively attempt to fetch metadata on page load (best-effort).
+    ensureMetadata(audio, dur);
+
+    audio.addEventListener('timeupdate', () => {
+      if (!isFinite(audio.duration) || audio.duration <= 0) return;
+
+      if (!isSeeking) {
+        const pct = (audio.currentTime / audio.duration) * 100;
+        scrub.value = String(pct);
+      }
+      cur.textContent = fmt(audio.currentTime);
+    });
+
+    audio.addEventListener('ended', () => {
+      setButton(card, false);
+      scrub.value = 0;
+      cur.textContent = "0:00";
+    });
+
+    playBtn.addEventListener('click', async () => {
+      if (audio.paused) {
+        stopOthers(audio);
+
+        // Ensure duration is available before playing (helps some browsers).
+        await ensureMetadata(audio, dur);
+
+        try {
+          await audio.play();
+          setButton(card, true);
+        } catch (e) {
+          console.warn("Audio play failed:", e);
+          setButton(card, false);
+        }
+      } else {
+        audio.pause();
+        setButton(card, false);
+      }
+    });
+
+    // Compute seek time from pointer position
+    function seekFromPointer(e){
+      const rect = scrub.getBoundingClientRect();
+      const clientX = (e.touches && e.touches[0]) ? e.touches[0].clientX : e.clientX;
+      const x = Math.min(Math.max(clientX - rect.left, 0), rect.width);
+      const pct = rect.width ? (x / rect.width) : 0;
+
+      audio.currentTime = pct * audio.duration;
+      scrub.value = String(pct * 100);
+      cur.textContent = fmt(audio.currentTime);
+    }
+
+    // Keyboard accessibility (range input)
+    scrub.addEventListener('input', async () => {
+      await ensureMetadata(audio, dur);
+      if (!isFinite(audio.duration) || audio.duration <= 0) return;
+
+      const pct = Number(scrub.value) / 100;
+      audio.currentTime = pct * audio.duration;
+      cur.textContent = fmt(audio.currentTime);
+    });
+
+    // Pointer events: click/drag seek (desktop + mobile)
+    scrub.addEventListener('pointerdown', async (e) => {
+      isSeeking = true;
+      scrub.setPointerCapture?.(e.pointerId);
+
+      await ensureMetadata(audio, dur);
+      if (!isFinite(audio.duration) || audio.duration <= 0) return;
+
+      seekFromPointer(e);
+    });
+
+    scrub.addEventListener('pointermove', (e) => {
+      if (!isSeeking) return;
+      if (!isFinite(audio.duration) || audio.duration <= 0) return;
+      seekFromPointer(e);
+    });
+
+    scrub.addEventListener('pointerup', (e) => {
+      if (!isSeeking) return;
+      if (isFinite(audio.duration) && audio.duration > 0) {
+        seekFromPointer(e);
+      }
+      isSeeking = false;
+      scrub.releasePointerCapture?.(e.pointerId);
+    });
+
+    scrub.addEventListener('pointercancel', () => {
+      isSeeking = false;
+    });
+
+    // Simple click seek fallback
+    scrub.addEventListener('click', async (e) => {
+      await ensureMetadata(audio, dur);
+      if (!isFinite(audio.duration) || audio.duration <= 0) return;
+      seekFromPointer(e);
+    });
+  });
+</script>
 </body>
 </html>
