@@ -9,11 +9,12 @@
 
   <style>
     :root {
-      --overlay: rgba(0, 0, 0, 0.18); /* lighter so bg shows */
+      --overlay: rgba(0, 0, 0, 0.18);
       --card-bg: rgba(16, 16, 24, 0.68);
       --border: rgba(255, 255, 255, 0.12);
       --button: rgba(255, 255, 255, 0.12);
       --button-hover: rgba(255, 255, 255, 0.22);
+      --text-dim: rgba(255, 255, 255, 0.72);
     }
 
     * { box-sizing: border-box; }
@@ -24,7 +25,6 @@
       font-family: 'Inter', sans-serif;
       color: #f2f2f2;
 
-      /* Option 3 background + lighter vignette */
       background:
         radial-gradient(circle at center, rgba(11,16,32,0.35) 0%, rgba(0,0,0,0.85) 70%),
         linear-gradient(var(--overlay), var(--overlay)),
@@ -38,7 +38,7 @@
 
     main {
       width: 100%;
-      max-width: 460px;
+      max-width: 480px;
       background: var(--card-bg);
       backdrop-filter: blur(14px);
       border-radius: 22px;
@@ -52,13 +52,14 @@
       margin: 0 0 6px;
       font-weight: 600;
       letter-spacing: 0.4px;
+      font-size: 2rem;
     }
 
     .tags {
       display: flex;
       justify-content: center;
       gap: 10px;
-      margin-bottom: 22px;
+      margin: 0 0 22px;
       font-size: 0.75rem;
       letter-spacing: 0.18em;
       text-transform: uppercase;
@@ -70,25 +71,29 @@
       margin-left: 10px;
       opacity: 0.6;
     }
-
     .tags span:last-child::after { content: ""; }
 
-    section {
+    .links {
       display: flex;
       flex-direction: column;
       gap: 12px;
     }
 
     a.button {
-      display: block;
-      padding: 14px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+
+      padding: 14px 14px;
       border-radius: 14px;
       text-decoration: none;
       color: #ffffff;
       background: var(--button);
       border: 1px solid var(--border);
+
       font-weight: 500;
-      letter-spacing: 0.02em;
+      letter-spacing: 0.01em;
+
       transition: background 0.2s ease, transform 0.15s ease;
     }
 
@@ -102,8 +107,41 @@
       outline-offset: 2px;
     }
 
+    .icon {
+      width: 22px;
+      height: 22px;
+      flex: 0 0 22px;
+      opacity: 0.95;
+    }
+
+    .label {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      line-height: 1.15;
+      text-align: left;
+      flex: 1;
+    }
+
+    .label strong {
+      font-size: 1rem;
+      font-weight: 600;
+    }
+
+    .label span {
+      font-size: 0.82rem;
+      color: var(--text-dim);
+      margin-top: 2px;
+    }
+
+    .arrow {
+      opacity: 0.6;
+      font-size: 1.1rem;
+      margin-left: 8px;
+    }
+
     footer {
-      margin-top: 22px;
+      margin-top: 18px;
       font-size: 0.75rem;
       opacity: 0.6;
     }
@@ -121,23 +159,65 @@
 
     <p class="tags">
       <span>music</span>
+      <span>films</span>
       <span>links</span>
-      <span>interests</span>
     </p>
 
-    <section>
-      <!-- Your X account -->
+    <section class="links" aria-label="Social links">
+      <!-- X / Twitter -->
       <a class="button" href="https://x.com/egemago" target="_blank" rel="noopener">
-        X / Twitter
+        <!-- X icon (simple) -->
+        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+          <path fill="currentColor" d="M18.9 2H22l-6.8 7.8L23 22h-6.4l-5-6.6L5.8 22H2l7.3-8.4L1 2h6.5l4.6 6.1L18.9 2zm-1.1 18h1.7L7.2 3.8H5.3L17.8 20z"/>
+        </svg>
+
+        <span class="label">
+          <strong>X / Twitter</strong>
+          <span>@egemago</span>
+        </span>
+        <span class="arrow">↗</span>
       </a>
 
-      <!-- OPTIONAL: replace or delete these -->
-      <a class="button" href="#" target="_blank" rel="noopener">
-        Instagram (add your link)
+      <!-- Letterboxd -->
+      <a class="button" href="https://letterboxd.com/stoneyend/" target="_blank" rel="noopener">
+        <!-- Film icon -->
+        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+          <path fill="currentColor" d="M4 6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6zm2 0v2h2V6H6zm4 0v2h2V6h-2zm4 0v2h2V6h-2zm4 0v2h2V6h-2zM6 10v8h12v-8H6z"/>
+        </svg>
+
+        <span class="label">
+          <strong>Letterboxd</strong>
+          <span>stoneyend</span>
+        </span>
+        <span class="arrow">↗</span>
       </a>
 
-      <a class="button" href="mailto:youremail@example.com">
-        Email me
+      <!-- RateYourMusic -->
+      <a class="button" href="https://rateyourmusic.com/~egemago" target="_blank" rel="noopener">
+        <!-- Music note icon -->
+        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+          <path fill="currentColor" d="M12 3v10.55A4 4 0 1 0 14 17V7h6V3h-8z"/>
+        </svg>
+
+        <span class="label">
+          <strong>Rate Your Music</strong>
+          <span>~egemago</span>
+        </span>
+        <span class="arrow">↗</span>
+      </a>
+
+      <!-- last.fm -->
+      <a class="button" href="https://www.last.fm/user/egemago" target="_blank" rel="noopener">
+        <!-- Radio waves icon -->
+        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+          <path fill="currentColor" d="M12 14a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm-6.36 3.36a9 9 0 0 1 0-12.72l1.41 1.41a7 7 0 0 0 0 9.9l-1.41 1.41zm12.72 0-1.41-1.41a7 7 0 0 0 0-9.9l1.41-1.41a9 9 0 0 1 0 12.72zM8.46 15.54a5 5 0 0 1 0-7.08l1.41 1.41a3 3 0 0 0 0 4.26l-1.41 1.41zm7.08 0-1.41-1.41a3 3 0 0 0 0-4.26l1.41-1.41a5 5 0 0 1 0 7.08z"/>
+        </svg>
+
+        <span class="label">
+          <strong>last.fm</strong>
+          <span>egemago</span>
+        </span>
+        <span class="arrow">↗</span>
       </a>
     </section>
 
