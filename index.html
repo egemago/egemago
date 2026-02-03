@@ -207,39 +207,47 @@
       margin-left: 8px;
     }
 
-    /* --- About block --- */
-    details.about{
+    /* --- Currently Reading / Watching cards --- */
+    .mediaGrid{
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+
+    .mediaCard{
+      display: grid;
+      grid-template-columns: 86px 1fr;
+      gap: 12px;
+      align-items: center;
+
       border: 1px solid var(--border);
       background: rgba(255,255,255,0.05);
       border-radius: 16px;
-      padding: 12px 14px;
+      padding: 12px;
     }
 
-    details.about summary{
-      cursor: pointer;
-      list-style: none;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 12px;
+    .mediaThumb{
+      width: 86px;
+      height: 86px;
+      border-radius: 14px;
+      object-fit: cover;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.06);
+    }
+
+    .mediaTitle{
       font-weight: 600;
+      margin: 0 0 4px 0;
     }
 
-    details.about summary::-webkit-details-marker{ display:none; }
-
-    .aboutBody{
-      margin-top: 10px;
+    .mediaSub{
+      margin: 0;
       color: var(--text-dim);
-      line-height: 1.55;
       font-size: 0.95rem;
+      line-height: 1.35;
     }
 
-    .aboutList{
-      margin: 10px 0 0;
-      padding-left: 18px;
-    }
-
-    /* --- Gallery --- */
+    /* --- Gallery (unchanged for now) --- */
     .gallery{
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -255,7 +263,7 @@
       background: rgba(255,255,255,0.06);
     }
 
-    /* --- Music embeds --- */
+    /* --- Music embeds (unchanged for now) --- */
     .musicTabs{
       display: flex;
       gap: 10px;
@@ -319,14 +327,14 @@
   <main>
     <!-- Profile / header -->
     <div class="profile">
-      <img class="avatar" src="assets/profile.jpg" alt="Profile photo" />
+      <img class="avatar" src="assets/profile.webp" alt="Profile photo" />
       <div class="profileText">
         <div class="nameRow">
-          <h1 style="margin:0;">egemago</h1>
+          <h1 style="margin:0;">Roberto</h1>
           <div class="handle">@egemago</div>
         </div>
         <p class="subhead">
-          Replace this with a 1–2 sentence bio (music taste, films, what you make, whatever you want people to know).
+          <!-- Optional: you can delete this line if you want only the Extended Bio below -->
         </p>
       </div>
     </div>
@@ -337,11 +345,11 @@
       <span>links</span>
     </div>
 
-    <!-- Quick info chips (edit these) -->
+    <!-- Quick info chips -->
     <div class="chipRow" aria-label="Quick facts">
-      <div class="chip">Pronouns: they/she</div>
-      <div class="chip">Age: 29</div>
-      <div class="chip">City: Baltimore, MD</div>
+      <div class="chip">Pronouns: he/him</div>
+      <div class="chip">Age: 20</div>
+      <div class="chip">City: Baltimore</div>
       <div class="chip">Languages: EN / ES</div>
     </div>
 
@@ -396,28 +404,35 @@
       </a>
     </section>
 
-    <!-- About section -->
-    <div class="sectionTitle">More about me</div>
-    <details class="about">
-      <summary>
-        <span>Read the longer version</span>
-        <span style="opacity:.6;">▾</span>
-      </summary>
-      <div class="aboutBody">
-        <p style="margin:0;">
-          Write a little “about” paragraph here. You can include what you’re into lately,
-          what you post, what kind of people you like meeting, etc.
-        </p>
+    <!-- Extended Bio -->
+    <div class="sectionTitle">Extended Bio</div>
 
-        <ul class="aboutList">
-          <li>Favorite genres: (edit me)</li>
-          <li>Currently watching/reading: (edit me)</li>
-          <li>Open to: collaborations / recommendations / new friends (edit me)</li>
-        </ul>
+    <div style="border:1px solid var(--border); background: rgba(255,255,255,0.05); border-radius:16px; padding:12px 14px; margin-bottom: 14px;">
+      <p style="margin:0; color: var(--text-dim); line-height: 1.55; font-size: 0.95rem;">
+        My name's Roberto. I mainly discuss music, but I love books, film, anime, manga, the gym, and Tottenham Hotspur. I was born in El Salvador, but have lived in Baltimore for most of my life. I am currently an Accounting and Finance major and a studying socialist.
+      </p>
+    </div>
+
+    <div class="sectionTitle">Currently</div>
+    <div class="mediaGrid" aria-label="Currently reading and watching">
+      <div class="mediaCard">
+        <img class="mediaThumb" src="assets/wuthering-heights.jpeg" alt="Cover of Wuthering Heights by Emily Brontë">
+        <div>
+          <p class="mediaTitle">Currently Reading</p>
+          <p class="mediaSub">Wuthering Heights by Emily Brontë</p>
+        </div>
       </div>
-    </details>
 
-    <!-- Gallery -->
+      <div class="mediaCard">
+        <img class="mediaThumb" src="assets/twin-peaks.jpeg" alt="Twin Peaks">
+        <div>
+          <p class="mediaTitle">Currently Rewatching</p>
+          <p class="mediaSub">Twin Peaks</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Images (unchanged for now) -->
     <div class="sectionTitle">Images</div>
     <div class="gallery" aria-label="Image gallery">
       <img src="assets/gallery-1.jpg" alt="Gallery image 1">
@@ -425,7 +440,7 @@
       <img src="assets/gallery-3.jpg" alt="Gallery image 3">
     </div>
 
-    <!-- Music embeds -->
+    <!-- Music embeds (unchanged for now) -->
     <div class="sectionTitle">Music you can play here</div>
 
     <div class="musicTabs" role="tablist" aria-label="Music embeds">
@@ -434,7 +449,6 @@
       <button class="tabBtn" role="tab" aria-selected="false" data-target="#embed-youtube">YouTube</button>
     </div>
 
-    <!-- Spotify example (replace with your track/playlist/album embed URL) -->
     <div id="embed-spotify" class="embed active" role="tabpanel">
       <iframe
         style="height: 152px;"
@@ -444,7 +458,6 @@
       </iframe>
     </div>
 
-    <!-- SoundCloud example (replace with your embed URL) -->
     <div id="embed-soundcloud" class="embed" role="tabpanel">
       <iframe
         style="height: 166px;"
@@ -454,7 +467,6 @@
       </iframe>
     </div>
 
-    <!-- YouTube example (replace VIDEO_ID) -->
     <div id="embed-youtube" class="embed" role="tabpanel">
       <iframe
         style="aspect-ratio: 16 / 9; height: auto;"
