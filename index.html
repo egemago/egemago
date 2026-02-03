@@ -10,7 +10,7 @@
 
   <style>
     :root {
-      --overlay: rgba(0, 0, 0, 0.4);
+      --overlay: rgba(0, 0, 0, 0.35);
       --card-bg: rgba(16, 16, 24, 0.7);
       --border: rgba(255, 255, 255, 0.12);
       --button: rgba(255, 255, 255, 0.12);
@@ -27,10 +27,11 @@
       font-family: 'Inter', sans-serif;
       color: #f2f2f2;
 
-      /* Background image */
+      /* Subtle gradient + background image (Option 3) */
       background:
+        radial-gradient(circle at center, #0b1020 0%, #000 70%),
         linear-gradient(var(--overlay), var(--overlay)),
-        url("assets/bg.png") center / cover no-repeat fixed;
+        url("assets/bg.png") center / cover no-repeat;
 
       display: flex;
       justify-content: center;
