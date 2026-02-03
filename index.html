@@ -6,22 +6,20 @@
   <title>Roberto</title>
 
   <!-- Open Graph -->
-<meta property="og:type" content="website">
-<meta property="og:title" content="Roberto — music, film, books">
-<meta property="og:description" content="Music, film, books, anime, and what I’m listening to right now.">
-<meta property="og:url" content="https://egemago.pages.dev">
-<meta property="og:image" content="https://egemago.pages.dev/assets/og-image.png">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Roberto">
+  <meta property="og:description" content="The New Page">
+  <meta property="og:url" content="https://egemago.pages.dev">
+  <meta property="og:image" content="https://egemago.pages.dev/assets/og-image.png">
   <meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
+  <meta property="og:image:height" content="630">
 
-
-<!-- Twitter Card -->
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Roberto — music, film, books">
-<meta name="twitter:description" content="Music, film, books, anime, and what I’m listening to right now.">
-<meta name="twitter:image" content="https://egemago.pages.dev/assets/og-image.png">
-<meta name="twitter:site" content="@egemago"> <!-- optional -->
-
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Roberto">
+  <meta name="twitter:description" content="The New Page">
+  <meta name="twitter:image" content="https://egemago.pages.dev/assets/og-image.png">
+  <meta name="twitter:site" content="@egemago">
 
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 
@@ -42,35 +40,34 @@
     html, body{ height:100%; }
 
     body{
-  margin:0;
-  min-height:100vh;
-  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-  color:#f2f2f2;
+      margin:0;
+      min-height:100vh;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color:#f2f2f2;
 
-  /* remove background from here */
-  background: transparent;
+      /* keep body transparent; paint background via ::before so it covers full page */
+      background: transparent;
 
-  display:flex;
-  justify-content:center;
-  align-items:flex-start;
-  padding:48px 16px;
-  position: relative;
-}
+      display:flex;
+      justify-content:center;
+      align-items:flex-start;
+      padding:48px 16px;
+      position: relative;
+    }
 
-body::before{
-  content:"";
-  position: fixed;
-  inset: 0;
-  z-index: -1;
+    body::before{
+      content:"";
+      position: fixed;
+      inset: 0;
+      z-index: -1;
 
-  background:
-    radial-gradient(circle at center, rgba(11,16,32,0.35) 0%, rgba(0,0,0,0.85) 70%),
-    linear-gradient(rgba(0,0,0,0.18), rgba(0,0,0,0.18)),
-    url("assets/bg.png") center 58% / cover no-repeat;
+      background:
+        radial-gradient(circle at center, rgba(11,16,32,0.35) 0%, rgba(0,0,0,0.85) 70%),
+        linear-gradient(var(--overlay), var(--overlay)),
+        url("assets/bg.png") center 58% / cover no-repeat;
 
-  transform: translateZ(0); /* helps performance */
-}
-
+      transform: translateZ(0);
+    }
 
     main{
       width:100%;
@@ -83,6 +80,7 @@ body::before{
       box-shadow: 0 10px 40px rgba(0,0,0,0.35);
     }
 
+    /* Header */
     .header{
       display:flex;
       gap:16px;
@@ -114,6 +112,7 @@ body::before{
       margin:0;
     }
 
+    /* Chips */
     .chips{
       display:flex;
       flex-wrap:wrap;
@@ -131,6 +130,7 @@ body::before{
       letter-spacing: 0.1px;
     }
 
+    /* Section titles */
     .sectionTitle{
       margin: 18px 0 10px;
       font-size: 0.78rem;
@@ -139,6 +139,7 @@ body::before{
       color: rgba(255,255,255,0.55);
     }
 
+    /* Link buttons */
     .links{
       display:flex;
       flex-direction:column;
@@ -180,6 +181,7 @@ body::before{
       min-width: 0;
     }
 
+    /* Social logos */
     .socialLogo{
       width:22px;
       height:22px;
@@ -204,6 +206,7 @@ body::before{
       flex:0 0 auto;
     }
 
+    /* Extended bio */
     .bioBox{
       background: rgba(255,255,255,0.08);
       border:1px solid rgba(255,255,255,0.12);
@@ -214,6 +217,7 @@ body::before{
       font-size: 0.98rem;
     }
 
+    /* Media cards (I AM) */
     .mediaGrid{
       display:flex;
       flex-direction:column;
@@ -249,12 +253,14 @@ body::before{
       font-size: 1.05rem;
       font-weight: 600;
     }
+
     .mediaSub{
       margin:4px 0 0;
       color: var(--text-dim);
       font-size: 0.98rem;
     }
 
+    /* Listening To */
     .listenGrid{
       display:flex;
       flex-direction:column;
@@ -324,11 +330,7 @@ body::before{
     .playBtn:hover{ transform: translateY(-1px); background: rgba(255,255,255,0.16); }
     .playIcon{ font-size: 0.95rem; opacity: 0.92; }
 
-    /* ✅ Desktop scrub fix:
-       - Force the range input to be on top and clickable.
-       - Avoid any overlay/pseudo element stealing clicks.
-       - Improve pointer behavior across browsers.
-    */
+    /* Range input: consistent & reliably clickable */
     .scrub{
       width:100%;
       accent-color: rgba(255,255,255,0.75);
@@ -336,15 +338,14 @@ body::before{
       z-index: 5;
       pointer-events: auto;
       cursor: pointer;
-      touch-action: none; /* helps pointer events behave consistently */
+      touch-action: none;
       -webkit-appearance: none;
       appearance: none;
-      height: 18px; /* slightly taller hit target */
+      height: 18px;
       background: transparent;
       padding: 0; margin: 0;
     }
 
-    /* WebKit track/thumb styling keeps it clickable and consistent */
     .scrub::-webkit-slider-runnable-track{
       height: 4px;
       border-radius: 999px;
@@ -355,13 +356,12 @@ body::before{
       appearance: none;
       width: 12px;
       height: 12px;
-      margin-top: -4px; /* centers thumb on 4px track */
+      margin-top: -4px;
       border-radius: 50%;
       background: rgba(255,255,255,0.85);
       border: 1px solid rgba(0,0,0,0.25);
     }
 
-    /* Firefox track/thumb */
     .scrub::-moz-range-track{
       height: 4px;
       border-radius: 999px;
@@ -407,6 +407,7 @@ body::before{
 
 <body>
   <main>
+    <!-- HEADER -->
     <div class="header">
       <img class="pfp" src="assets/profile.webp" alt="Profile photo">
       <div>
@@ -416,6 +417,7 @@ body::before{
       </div>
     </div>
 
+    <!-- CHIPS -->
     <div class="chips" aria-label="Quick info">
       <div class="chip">he/him</div>
       <div class="chip">20</div>
@@ -423,6 +425,7 @@ body::before{
       <div class="chip">EN / ES</div>
     </div>
 
+    <!-- LINKS -->
     <section class="links" aria-label="Social links">
       <a class="button" href="https://twitter.com/egemago" target="_blank" rel="noopener">
         <span class="leftWrap">
@@ -465,11 +468,13 @@ body::before{
       </a>
     </section>
 
+    <!-- EXTENDED BIO -->
     <div class="sectionTitle">Extended Bio</div>
     <div class="bioBox">
       My name's Roberto. I mainly discuss music, but I love books, film, anime, manga, the gym, and Tottenham Hotspur. I was born in El Salvador, but have lived in Baltimore for most of my life. I am currently an Accounting and Finance major and a studying socialist.
     </div>
 
+    <!-- I AM -->
     <div class="sectionTitle">I Am</div>
     <div class="mediaGrid" aria-label="Currently reading and watching">
       <div class="mediaCard">
@@ -489,8 +494,10 @@ body::before{
       </div>
     </div>
 
+    <!-- LISTENING TO -->
     <div class="sectionTitle">Listening To</div>
     <div class="listenGrid" aria-label="Music player">
+      <!-- Track 1 -->
       <div class="trackCard" data-track>
         <img class="albumCover" src="assets/englishsettlement-logo.jpg" alt="English Settlement cover">
         <div class="trackMeta">
@@ -513,6 +520,7 @@ body::before{
         </div>
       </div>
 
+      <!-- Track 2 -->
       <div class="trackCard" data-track>
         <img class="albumCover" src="assets/bizarreride-logo.jpg" alt="Bizarre Ride II the Pharcyde cover">
         <div class="trackMeta">
@@ -535,6 +543,7 @@ body::before{
         </div>
       </div>
 
+      <!-- Track 3 -->
       <div class="trackCard" data-track>
         <img class="albumCover" src="assets/wallsocket-logo.webp" alt="Wallsocket cover">
         <div class="trackMeta">
@@ -562,169 +571,157 @@ body::before{
   </main>
 
   <script>
-  // One track plays at a time + robust desktop/mobile seek.
-  const tracks = Array.from(document.querySelectorAll('[data-track]'));
+    // One track plays at a time + robust desktop/mobile seek.
+    const tracks = Array.from(document.querySelectorAll('[data-track]'));
 
-  const fmt = (t) => {
-    if (!isFinite(t) || t < 0) return "0:00";
-    const m = Math.floor(t / 60);
-    const s = Math.floor(t % 60);
-    return `${m}:${String(s).padStart(2, "0")}`;
-  };
+    const fmt = (t) => {
+      if (!isFinite(t) || t < 0) return "0:00";
+      const m = Math.floor(t / 60);
+      const s = Math.floor(t % 60);
+      return `${m}:${String(s).padStart(2, "0")}`;
+    };
 
-  function setButton(card, playing){
-    const icon = card.querySelector('.playIcon');
-    icon.textContent = playing ? "❚❚" : "▶";
-  }
-
-  function stopOthers(exceptAudio){
-    tracks.forEach(card => {
-      const a = card.querySelector('audio');
-      if (a !== exceptAudio) {
-        a.pause();
-        a.currentTime = 0;
-
-        const scrub = card.querySelector('.scrub');
-        const cur = card.querySelector('.curTime');
-
-        scrub.value = 0;
-        cur.textContent = "0:00";
-        setButton(card, false);
-      }
-    });
-  }
-
-  // Ensure metadata/duration is available; if not, load and wait for it.
-  function ensureMetadata(audio, durEl) {
-    return new Promise((resolve) => {
-      // HAVE_METADATA = 1, but duration is reliable once metadata is loaded.
-      if (audio.readyState >= 1 && isFinite(audio.duration) && audio.duration > 0) {
-        if (durEl) durEl.textContent = fmt(audio.duration);
-        resolve();
-        return;
-      }
-
-      const onMeta = () => {
-        if (durEl) durEl.textContent = fmt(audio.duration);
-        audio.removeEventListener('loadedmetadata', onMeta);
-        resolve();
-      };
-
-      audio.addEventListener('loadedmetadata', onMeta, { once: true });
-
-      // Kick the browser to actually fetch metadata.
-      // (Some desktops won't load it until "load()" or "play()".)
-      try { audio.load(); } catch (_) {}
-    });
-  }
-
-  tracks.forEach(card => {
-    const audio = card.querySelector('audio');
-    const playBtn = card.querySelector('.playBtn');
-    const scrub = card.querySelector('.scrub');
-    const cur = card.querySelector('.curTime');
-    const dur = card.querySelector('.durTime');
-
-    let isSeeking = false;
-
-    // Proactively attempt to fetch metadata on page load (best-effort).
-    ensureMetadata(audio, dur);
-
-    audio.addEventListener('timeupdate', () => {
-      if (!isFinite(audio.duration) || audio.duration <= 0) return;
-
-      if (!isSeeking) {
-        const pct = (audio.currentTime / audio.duration) * 100;
-        scrub.value = String(pct);
-      }
-      cur.textContent = fmt(audio.currentTime);
-    });
-
-    audio.addEventListener('ended', () => {
-      setButton(card, false);
-      scrub.value = 0;
-      cur.textContent = "0:00";
-    });
-
-    playBtn.addEventListener('click', async () => {
-      if (audio.paused) {
-        stopOthers(audio);
-
-        // Ensure duration is available before playing (helps some browsers).
-        await ensureMetadata(audio, dur);
-
-        try {
-          await audio.play();
-          setButton(card, true);
-        } catch (e) {
-          console.warn("Audio play failed:", e);
-          setButton(card, false);
-        }
-      } else {
-        audio.pause();
-        setButton(card, false);
-      }
-    });
-
-    // Compute seek time from pointer position
-    function seekFromPointer(e){
-      const rect = scrub.getBoundingClientRect();
-      const clientX = (e.touches && e.touches[0]) ? e.touches[0].clientX : e.clientX;
-      const x = Math.min(Math.max(clientX - rect.left, 0), rect.width);
-      const pct = rect.width ? (x / rect.width) : 0;
-
-      audio.currentTime = pct * audio.duration;
-      scrub.value = String(pct * 100);
-      cur.textContent = fmt(audio.currentTime);
+    function setButton(card, playing){
+      const icon = card.querySelector('.playIcon');
+      icon.textContent = playing ? "❚❚" : "▶";
     }
 
-    // Keyboard accessibility (range input)
-    scrub.addEventListener('input', async () => {
-      await ensureMetadata(audio, dur);
-      if (!isFinite(audio.duration) || audio.duration <= 0) return;
+    function stopOthers(exceptAudio){
+      tracks.forEach(card => {
+        const a = card.querySelector('audio');
+        if (a !== exceptAudio) {
+          a.pause();
+          a.currentTime = 0;
 
-      const pct = Number(scrub.value) / 100;
-      audio.currentTime = pct * audio.duration;
-      cur.textContent = fmt(audio.currentTime);
-    });
+          const scrub = card.querySelector('.scrub');
+          const cur = card.querySelector('.curTime');
 
-    // Pointer events: click/drag seek (desktop + mobile)
-    scrub.addEventListener('pointerdown', async (e) => {
-      isSeeking = true;
-      scrub.setPointerCapture?.(e.pointerId);
+          scrub.value = 0;
+          cur.textContent = "0:00";
+          setButton(card, false);
+        }
+      });
+    }
 
-      await ensureMetadata(audio, dur);
-      if (!isFinite(audio.duration) || audio.duration <= 0) return;
+    function ensureMetadata(audio, durEl) {
+      return new Promise((resolve) => {
+        if (audio.readyState >= 1 && isFinite(audio.duration) && audio.duration > 0) {
+          if (durEl) durEl.textContent = fmt(audio.duration);
+          resolve();
+          return;
+        }
 
-      seekFromPointer(e);
-    });
+        const onMeta = () => {
+          if (durEl) durEl.textContent = fmt(audio.duration);
+          resolve();
+        };
 
-    scrub.addEventListener('pointermove', (e) => {
-      if (!isSeeking) return;
-      if (!isFinite(audio.duration) || audio.duration <= 0) return;
-      seekFromPointer(e);
-    });
+        audio.addEventListener('loadedmetadata', onMeta, { once: true });
 
-    scrub.addEventListener('pointerup', (e) => {
-      if (!isSeeking) return;
-      if (isFinite(audio.duration) && audio.duration > 0) {
-        seekFromPointer(e);
+        try { audio.load(); } catch (_) {}
+      });
+    }
+
+    tracks.forEach(card => {
+      const audio = card.querySelector('audio');
+      const playBtn = card.querySelector('.playBtn');
+      const scrub = card.querySelector('.scrub');
+      const cur = card.querySelector('.curTime');
+      const dur = card.querySelector('.durTime');
+
+      let isSeeking = false;
+
+      ensureMetadata(audio, dur);
+
+      audio.addEventListener('timeupdate', () => {
+        if (!isFinite(audio.duration) || audio.duration <= 0) return;
+
+        if (!isSeeking) {
+          const pct = (audio.currentTime / audio.duration) * 100;
+          scrub.value = String(pct);
+        }
+        cur.textContent = fmt(audio.currentTime);
+      });
+
+      audio.addEventListener('ended', () => {
+        setButton(card, false);
+        scrub.value = 0;
+        cur.textContent = "0:00";
+      });
+
+      playBtn.addEventListener('click', async () => {
+        if (audio.paused) {
+          stopOthers(audio);
+          await ensureMetadata(audio, dur);
+
+          try {
+            await audio.play();
+            setButton(card, true);
+          } catch (e) {
+            console.warn("Audio play failed:", e);
+            setButton(card, false);
+          }
+        } else {
+          audio.pause();
+          setButton(card, false);
+        }
+      });
+
+      function seekFromPointer(e){
+        const rect = scrub.getBoundingClientRect();
+        const clientX = (e.touches && e.touches[0]) ? e.touches[0].clientX : e.clientX;
+        const x = Math.min(Math.max(clientX - rect.left, 0), rect.width);
+        const pct = rect.width ? (x / rect.width) : 0;
+
+        audio.currentTime = pct * audio.duration;
+        scrub.value = String(pct * 100);
+        cur.textContent = fmt(audio.currentTime);
       }
-      isSeeking = false;
-      scrub.releasePointerCapture?.(e.pointerId);
-    });
 
-    scrub.addEventListener('pointercancel', () => {
-      isSeeking = false;
-    });
+      scrub.addEventListener('input', async () => {
+        await ensureMetadata(audio, dur);
+        if (!isFinite(audio.duration) || audio.duration <= 0) return;
 
-    // Simple click seek fallback
-    scrub.addEventListener('click', async (e) => {
-      await ensureMetadata(audio, dur);
-      if (!isFinite(audio.duration) || audio.duration <= 0) return;
-      seekFromPointer(e);
+        const pct = Number(scrub.value) / 100;
+        audio.currentTime = pct * audio.duration;
+        cur.textContent = fmt(audio.currentTime);
+      });
+
+      scrub.addEventListener('pointerdown', async (e) => {
+        isSeeking = true;
+        scrub.setPointerCapture?.(e.pointerId);
+
+        await ensureMetadata(audio, dur);
+        if (!isFinite(audio.duration) || audio.duration <= 0) return;
+
+        seekFromPointer(e);
+      });
+
+      scrub.addEventListener('pointermove', (e) => {
+        if (!isSeeking) return;
+        if (!isFinite(audio.duration) || audio.duration <= 0) return;
+        seekFromPointer(e);
+      });
+
+      scrub.addEventListener('pointerup', (e) => {
+        if (!isSeeking) return;
+        if (isFinite(audio.duration) && audio.duration > 0) {
+          seekFromPointer(e);
+        }
+        isSeeking = false;
+        scrub.releasePointerCapture?.(e.pointerId);
+      });
+
+      scrub.addEventListener('pointercancel', () => {
+        isSeeking = false;
+      });
+
+      scrub.addEventListener('click', async (e) => {
+        await ensureMetadata(audio, dur);
+        if (!isFinite(audio.duration) || audio.duration <= 0) return;
+        seekFromPointer(e);
+      });
     });
-  });
-</script>
+  </script>
 </body>
 </html>
