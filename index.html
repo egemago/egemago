@@ -5,21 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>egemago</title>
 
-  <!-- Google Font -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 
   <style>
     :root {
-      --overlay: rgba(0, 0, 0, 0.35);
-      --card-bg: rgba(16, 16, 24, 0.7);
+      --overlay: rgba(0, 0, 0, 0.18); /* lighter so bg shows */
+      --card-bg: rgba(16, 16, 24, 0.68);
       --border: rgba(255, 255, 255, 0.12);
       --button: rgba(255, 255, 255, 0.12);
       --button-hover: rgba(255, 255, 255, 0.22);
     }
 
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
       margin: 0;
@@ -27,9 +24,9 @@
       font-family: 'Inter', sans-serif;
       color: #f2f2f2;
 
-      /* Option 3 background: crop + subtle gradient */
+      /* Option 3 background + lighter vignette */
       background:
-        radial-gradient(circle at center, #0b1020 0%, #000 70%),
+        radial-gradient(circle at center, rgba(11,16,32,0.35) 0%, rgba(0,0,0,0.85) 70%),
         linear-gradient(var(--overlay), var(--overlay)),
         url("assets/bg.png") center / cover no-repeat;
 
@@ -57,7 +54,6 @@
       letter-spacing: 0.4px;
     }
 
-    /* Tag line */
     .tags {
       display: flex;
       justify-content: center;
@@ -66,7 +62,7 @@
       font-size: 0.75rem;
       letter-spacing: 0.18em;
       text-transform: uppercase;
-      opacity: 0.7;
+      opacity: 0.75;
     }
 
     .tags span::after {
@@ -75,9 +71,7 @@
       opacity: 0.6;
     }
 
-    .tags span:last-child::after {
-      content: "";
-    }
+    .tags span:last-child::after { content: ""; }
 
     section {
       display: flex;
@@ -114,15 +108,9 @@
       opacity: 0.6;
     }
 
-    /* Mobile spacing */
     @media (max-width: 480px) {
-      body {
-        padding: 28px 12px;
-      }
-
-      main {
-        padding: 22px;
-      }
+      body { padding: 28px 12px; }
+      main { padding: 22px; }
     }
   </style>
 </head>
@@ -138,26 +126,18 @@
     </p>
 
     <section>
-      <!-- Replace these href values with your real links -->
-      <a class="button"
-         href="https://open.spotify.com"
-         target="_blank"
-         rel="noopener">
-         Spotify
+      <!-- Your X account -->
+      <a class="button" href="https://x.com/egemago" target="_blank" rel="noopener">
+        X / Twitter
       </a>
 
-      <a class="button"
-         href="https://twitter.com"
-         target="_blank"
-         rel="noopener">
-         Twitter / X
+      <!-- OPTIONAL: replace or delete these -->
+      <a class="button" href="#" target="_blank" rel="noopener">
+        Instagram (add your link)
       </a>
 
-      <a class="button"
-         href="https://egemago.straw.page"
-         target="_blank"
-         rel="noopener">
-         Straw.page
+      <a class="button" href="mailto:youremail@example.com">
+        Email me
       </a>
     </section>
 
