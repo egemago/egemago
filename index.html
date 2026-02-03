@@ -5,15 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>egemago</title>
 
-  <!-- Font -->
+  <!-- Google Font -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 
   <style>
     :root {
-      --overlay-dark: rgba(0, 0, 0, 0.55);
-      --card-bg: rgba(20, 20, 30, 0.65);
-      --button-bg: rgba(255, 255, 255, 0.10);
-      --button-hover: rgba(255, 255, 255, 0.20);
+      --overlay: rgba(0, 0, 0, 0.4);
+      --card-bg: rgba(16, 16, 24, 0.7);
+      --border: rgba(255, 255, 255, 0.12);
+      --button: rgba(255, 255, 255, 0.12);
+      --button-hover: rgba(255, 255, 255, 0.22);
     }
 
     * {
@@ -26,9 +27,9 @@
       font-family: 'Inter', sans-serif;
       color: #f2f2f2;
 
-      /* BACKGROUND IMAGE */
+      /* Background image */
       background:
-        linear-gradient(var(--overlay-dark), var(--overlay-dark)),
+        linear-gradient(var(--overlay), var(--overlay)),
         url("assets/bg.png") center / cover no-repeat fixed;
 
       display: flex;
@@ -39,27 +40,29 @@
 
     main {
       width: 100%;
-      max-width: 420px;
+      max-width: 460px;
       background: var(--card-bg);
-      backdrop-filter: blur(12px);
-      border-radius: 20px;
+      backdrop-filter: blur(14px);
+      border-radius: 22px;
+      border: 1px solid var(--border);
       padding: 28px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.35);
       text-align: center;
     }
 
     h1 {
-      margin: 0 0 8px;
+      margin: 0 0 6px;
       font-weight: 600;
-      letter-spacing: 0.5px;
+      letter-spacing: 0.4px;
     }
 
-    p.subtitle {
-      margin: 0 0 24px;
+    .subtitle {
+      margin: 0 0 22px;
       opacity: 0.85;
       font-size: 0.95rem;
     }
 
-    .links {
+    section {
       display: flex;
       flex-direction: column;
       gap: 12px;
@@ -70,8 +73,9 @@
       padding: 14px;
       border-radius: 14px;
       text-decoration: none;
-      color: #fff;
-      background: var(--button-bg);
+      color: #ffffff;
+      background: var(--button);
+      border: 1px solid var(--border);
       transition: background 0.2s ease, transform 0.15s ease;
     }
 
@@ -80,7 +84,44 @@
       transform: translateY(-1px);
     }
 
+    a.button:focus {
+      outline: 3px solid rgba(255,255,255,0.4);
+      outline-offset: 2px;
+    }
+
     footer {
-      margin-top: 24px;
+      margin-top: 22px;
       font-size: 0.75rem;
-      opacity:
+      opacity: 0.65;
+    }
+
+    /* Mobile spacing */
+    @media (max-width: 480px) {
+      body {
+        padding: 28px 12px;
+      }
+
+      main {
+        padding: 22px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main>
+    <h1>egemago</h1>
+    <p class="subtitle">music • links • interests</p>
+
+    <section>
+      <a class="button" href="#" target="_blank" rel="noopener">Spotify</a>
+      <a class="button" href="#" target="_blank" rel="noopener">Twitter / X</a>
+      <a class="button" href="#" target="_blank" rel="noopener">Straw.page</a>
+    </section>
+
+    <footer>
+      ✦ built with Cloudflare Pages ✦
+    </footer>
+  </main>
+</body>
+</html>
