@@ -5,24 +5,27 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>egemago</title>
 
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 
   <style>
-    :root {
+    :root{
       --overlay: rgba(0, 0, 0, 0.18);
       --card-bg: rgba(16, 16, 24, 0.68);
       --border: rgba(255, 255, 255, 0.12);
       --button: rgba(255, 255, 255, 0.12);
       --button-hover: rgba(255, 255, 255, 0.22);
       --text-dim: rgba(255, 255, 255, 0.72);
+      --text-dimmer: rgba(255, 255, 255, 0.55);
     }
 
     * { box-sizing: border-box; }
 
-    body {
+    body{
       margin: 0;
       min-height: 100vh;
-      font-family: 'Inter', sans-serif;
+      font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
       color: #f2f2f2;
 
       background:
@@ -36,141 +39,319 @@
       padding: 48px 16px;
     }
 
-    main {
+    main{
       width: 100%;
-      max-width: 480px;
+      max-width: 520px;
       background: var(--card-bg);
       backdrop-filter: blur(14px);
       border-radius: 22px;
       border: 1px solid var(--border);
-      padding: 28px;
+      padding: 26px;
       box-shadow: 0 10px 40px rgba(0,0,0,0.35);
-      text-align: center;
     }
 
-    h1 {
-      margin: 0 0 6px;
+    h1{
+      margin: 0 0 6px 0;
       font-weight: 600;
       letter-spacing: 0.4px;
       font-size: 2rem;
     }
 
-    .tags {
+    .subhead{
+      margin: 0;
+      color: var(--text-dim);
+      font-size: 0.95rem;
+      line-height: 1.35;
+    }
+
+    /* --- Profile header --- */
+    .profile{
+      display: flex;
+      gap: 14px;
+      align-items: center;
+      margin-bottom: 18px;
+    }
+
+    .avatar{
+      width: 72px;
+      height: 72px;
+      border-radius: 18px;
+      object-fit: cover;
+      border: 1px solid var(--border);
+      box-shadow: 0 8px 26px rgba(0,0,0,0.35);
+      background: rgba(255,255,255,0.06);
+    }
+
+    .profileText{
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      min-width: 0;
+    }
+
+    .nameRow{
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .handle{
+      color: var(--text-dimmer);
+      font-size: 0.9rem;
+    }
+
+    .tags{
       display: flex;
       justify-content: center;
       gap: 10px;
-      margin: 0 0 22px;
+      margin: 10px 0 18px;
       font-size: 0.75rem;
       letter-spacing: 0.18em;
       text-transform: uppercase;
       opacity: 0.75;
+      flex-wrap: wrap;
     }
 
-    .tags span::after {
-      content: "•";
-      margin-left: 10px;
-      opacity: 0.6;
+    .chipRow{
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 14px 0 18px;
     }
-    .tags span:last-child::after { content: ""; }
 
-    .links {
+    .chip{
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.06);
+      padding: 8px 10px;
+      border-radius: 999px;
+      font-size: 0.82rem;
+      color: var(--text-dim);
+    }
+
+    .sectionTitle{
+      margin: 18px 0 10px;
+      font-size: 0.92rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-dimmer);
+    }
+
+    /* --- Buttons / links --- */
+    .links{
       display: flex;
       flex-direction: column;
       gap: 12px;
     }
 
-    a.button {
+    a.button{
       display: flex;
       align-items: center;
       gap: 12px;
-
       padding: 14px 14px;
       border-radius: 14px;
       text-decoration: none;
-      color: #ffffff;
+      color: #fff;
       background: var(--button);
       border: 1px solid var(--border);
-
       font-weight: 500;
       letter-spacing: 0.01em;
-
       transition: background 0.2s ease, transform 0.15s ease;
     }
 
-    a.button:hover {
+    a.button:hover{
       background: var(--button-hover);
       transform: translateY(-1px);
     }
 
-    a.button:focus {
+    a.button:focus{
       outline: 3px solid rgba(255,255,255,0.4);
       outline-offset: 2px;
     }
 
-    .icon {
+    .icon{
       width: 22px;
       height: 22px;
       flex: 0 0 22px;
       opacity: 0.95;
     }
 
-    .label {
+    .label{
       display: flex;
       flex-direction: column;
       align-items: flex-start;
       line-height: 1.15;
-      text-align: left;
       flex: 1;
+      min-width: 0;
+      text-align: left;
     }
 
-    .label strong {
+    .label strong{
       font-size: 1rem;
       font-weight: 600;
     }
 
-    .label span {
+    .label span{
       font-size: 0.82rem;
       color: var(--text-dim);
       margin-top: 2px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      max-width: 100%;
     }
 
-    .arrow {
+    .arrow{
       opacity: 0.6;
       font-size: 1.1rem;
       margin-left: 8px;
     }
 
-    footer {
+    /* --- About block --- */
+    details.about{
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.05);
+      border-radius: 16px;
+      padding: 12px 14px;
+    }
+
+    details.about summary{
+      cursor: pointer;
+      list-style: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      font-weight: 600;
+    }
+
+    details.about summary::-webkit-details-marker{ display:none; }
+
+    .aboutBody{
+      margin-top: 10px;
+      color: var(--text-dim);
+      line-height: 1.55;
+      font-size: 0.95rem;
+    }
+
+    .aboutList{
+      margin: 10px 0 0;
+      padding-left: 18px;
+    }
+
+    /* --- Gallery --- */
+    .gallery{
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+
+    .gallery img{
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.06);
+    }
+
+    /* --- Music embeds --- */
+    .musicTabs{
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin: 10px 0 12px;
+    }
+
+    .tabBtn{
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.06);
+      color: #fff;
+      padding: 8px 10px;
+      border-radius: 999px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      transition: background 0.2s ease;
+    }
+
+    .tabBtn:hover{ background: rgba(255,255,255,0.12); }
+    .tabBtn[aria-selected="true"]{
+      background: rgba(255,255,255,0.18);
+    }
+
+    .embed{
+      display: none;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      background: rgba(0,0,0,0.25);
+    }
+    .embed.active{ display: block; }
+
+    .embed iframe{
+      width: 100%;
+      border: 0;
+      display: block;
+    }
+
+    footer{
       margin-top: 18px;
       font-size: 0.75rem;
       opacity: 0.6;
+      text-align: center;
     }
 
-    @media (max-width: 480px) {
-      body { padding: 28px 12px; }
-      main { padding: 22px; }
+    @media (max-width: 520px){
+      body{ padding: 28px 12px; }
+      main{ padding: 22px; }
+      .gallery{ grid-template-columns: repeat(2, 1fr); }
+      .avatar{ width: 64px; height: 64px; border-radius: 16px; }
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      a.button{ transition: none; }
+      a.button:hover{ transform: none; }
     }
   </style>
 </head>
 
 <body>
   <main>
-    <h1>egemago</h1>
+    <!-- Profile / header -->
+    <div class="profile">
+      <img class="avatar" src="assets/profile.jpg" alt="Profile photo" />
+      <div class="profileText">
+        <div class="nameRow">
+          <h1 style="margin:0;">egemago</h1>
+          <div class="handle">@egemago</div>
+        </div>
+        <p class="subhead">
+          Replace this with a 1–2 sentence bio (music taste, films, what you make, whatever you want people to know).
+        </p>
+      </div>
+    </div>
 
-    <p class="tags">
+    <div class="tags" aria-label="Interests">
       <span>music</span>
       <span>films</span>
       <span>links</span>
-    </p>
+    </div>
 
+    <!-- Quick info chips (edit these) -->
+    <div class="chipRow" aria-label="Quick facts">
+      <div class="chip">Pronouns: they/she</div>
+      <div class="chip">Age: 29</div>
+      <div class="chip">City: Baltimore, MD</div>
+      <div class="chip">Languages: EN / ES</div>
+    </div>
+
+    <!-- Social links -->
     <section class="links" aria-label="Social links">
       <!-- X / Twitter -->
       <a class="button" href="https://x.com/egemago" target="_blank" rel="noopener">
-        <!-- X icon (simple) -->
         <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
-          <path fill="currentColor" d="M18.9 2H22l-6.8 7.8L23 22h-6.4l-5-6.6L5.8 22H2l7.3-8.4L1 2h6.5l4.6 6.1L18.9 2zm-1.1 18h1.7L7.2 3.8H5.3L17.8 20z"/>
+          <path fill="currentColor" d="M18.9 2H21l-6.8 7.8L23 22h-6.4l-5-6.6L6.5 22H3.4l7.3-8.5L1 2h6.5l4.6 6.1L18.9 2z"/>
         </svg>
-
         <span class="label">
           <strong>X / Twitter</strong>
           <span>@egemago</span>
@@ -180,11 +361,9 @@
 
       <!-- Letterboxd -->
       <a class="button" href="https://letterboxd.com/stoneyend/" target="_blank" rel="noopener">
-        <!-- Film icon -->
         <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
-          <path fill="currentColor" d="M4 6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6zm2 0v2h2V6H6zm4 0v2h2V6h-2zm4 0v2h2V6h-2zm4 0v2h2V6h-2zM6 10v8h12v-8H6z"/>
+          <path fill="currentColor" d="M4 6a2 2 0 0 1 2-2h2v16H6a2 2 0 0 1-2-2V6zm6-2h4v16h-4V4zm6 0h2a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-2V4z"/>
         </svg>
-
         <span class="label">
           <strong>Letterboxd</strong>
           <span>stoneyend</span>
@@ -194,11 +373,9 @@
 
       <!-- RateYourMusic -->
       <a class="button" href="https://rateyourmusic.com/~egemago" target="_blank" rel="noopener">
-        <!-- Music note icon -->
         <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
-          <path fill="currentColor" d="M12 3v10.55A4 4 0 1 0 14 17V7h6V3h-8z"/>
+          <path fill="currentColor" d="M12 3a9 9 0 1 0 9 9 9 9 0 0 0-9-9Zm0 2a7 7 0 0 1 7 7c0 2.3-1.1 4.4-2.8 5.7L8.3 7.8A7 7 0 0 1 12 5Zm-7 7a7 7 0 0 1 1.6-4.5l8.8 10.7A7 7 0 0 1 5 12Z"/>
         </svg>
-
         <span class="label">
           <strong>Rate Your Music</strong>
           <span>~egemago</span>
@@ -208,11 +385,9 @@
 
       <!-- last.fm -->
       <a class="button" href="https://www.last.fm/user/egemago" target="_blank" rel="noopener">
-        <!-- Radio waves icon -->
         <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
-          <path fill="currentColor" d="M12 14a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm-6.36 3.36a9 9 0 0 1 0-12.72l1.41 1.41a7 7 0 0 0 0 9.9l-1.41 1.41zm12.72 0-1.41-1.41a7 7 0 0 0 0-9.9l1.41-1.41a9 9 0 0 1 0 12.72zM8.46 15.54a5 5 0 0 1 0-7.08l1.41 1.41a3 3 0 0 0 0 4.26l-1.41 1.41zm7.08 0-1.41-1.41a3 3 0 0 0 0-4.26l1.41-1.41a5 5 0 0 1 0 7.08z"/>
+          <path fill="currentColor" d="M11.4 17.5c-2.8 0-4.7-1.6-5.7-4.8l-.7-2.1c-.7-2.2-1.8-3.2-3.4-3.2-1.2 0-2 .8-2 2 0 1.3.8 2 2.2 2h.6v1.7h-.7c-2.4 0-4-1.4-4-3.7C-1.1 6.8.5 5 2.9 5c2.6 0 4.2 1.4 5.3 4.7l.7 2.1c.7 2.2 1.8 3.2 3.4 3.2 1.2 0 2-.6 2-1.6 0-1.1-.6-1.6-2.3-2l-1.2-.3c-2.3-.5-3.3-1.8-3.3-3.7 0-2.4 1.9-3.9 4.6-3.9 2.5 0 4.3 1.1 5.1 3.4l-1.7.5c-.6-1.6-1.7-2.3-3.4-2.3-1.6 0-2.7.7-2.7 2 0 1.1.6 1.6 2.1 1.9l1.2.3c2.7.6 3.6 1.8 3.6 3.8 0 2.3-1.9 3.6-4.6 3.6Z"/>
         </svg>
-
         <span class="label">
           <strong>last.fm</strong>
           <span>egemago</span>
@@ -221,9 +396,94 @@
       </a>
     </section>
 
-    <footer>
-      ✦ built with Cloudflare Pages ✦
-    </footer>
+    <!-- About section -->
+    <div class="sectionTitle">More about me</div>
+    <details class="about">
+      <summary>
+        <span>Read the longer version</span>
+        <span style="opacity:.6;">▾</span>
+      </summary>
+      <div class="aboutBody">
+        <p style="margin:0;">
+          Write a little “about” paragraph here. You can include what you’re into lately,
+          what you post, what kind of people you like meeting, etc.
+        </p>
+
+        <ul class="aboutList">
+          <li>Favorite genres: (edit me)</li>
+          <li>Currently watching/reading: (edit me)</li>
+          <li>Open to: collaborations / recommendations / new friends (edit me)</li>
+        </ul>
+      </div>
+    </details>
+
+    <!-- Gallery -->
+    <div class="sectionTitle">Images</div>
+    <div class="gallery" aria-label="Image gallery">
+      <img src="assets/gallery-1.jpg" alt="Gallery image 1">
+      <img src="assets/gallery-2.jpg" alt="Gallery image 2">
+      <img src="assets/gallery-3.jpg" alt="Gallery image 3">
+    </div>
+
+    <!-- Music embeds -->
+    <div class="sectionTitle">Music you can play here</div>
+
+    <div class="musicTabs" role="tablist" aria-label="Music embeds">
+      <button class="tabBtn" role="tab" aria-selected="true" data-target="#embed-spotify">Spotify</button>
+      <button class="tabBtn" role="tab" aria-selected="false" data-target="#embed-soundcloud">SoundCloud</button>
+      <button class="tabBtn" role="tab" aria-selected="false" data-target="#embed-youtube">YouTube</button>
+    </div>
+
+    <!-- Spotify example (replace with your track/playlist/album embed URL) -->
+    <div id="embed-spotify" class="embed active" role="tabpanel">
+      <iframe
+        style="height: 152px;"
+        src="https://open.spotify.com/embed/playlist/37i9dQZF1DXcBWIGoYBM5M?utm_source=generator"
+        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+        loading="lazy">
+      </iframe>
+    </div>
+
+    <!-- SoundCloud example (replace with your embed URL) -->
+    <div id="embed-soundcloud" class="embed" role="tabpanel">
+      <iframe
+        style="height: 166px;"
+        scrolling="no"
+        allow="autoplay"
+        src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/308119463&color=%23000000&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true">
+      </iframe>
+    </div>
+
+    <!-- YouTube example (replace VIDEO_ID) -->
+    <div id="embed-youtube" class="embed" role="tabpanel">
+      <iframe
+        style="aspect-ratio: 16 / 9; height: auto;"
+        src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+        title="YouTube player"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        loading="lazy"
+        allowfullscreen>
+      </iframe>
+    </div>
+
+    <footer>✦ built with Cloudflare Pages ✦</footer>
   </main>
+
+  <script>
+    // Simple tab switcher for embeds
+    const tabButtons = document.querySelectorAll(".tabBtn");
+    const embeds = document.querySelectorAll(".embed");
+
+    tabButtons.forEach(btn => {
+      btn.addEventListener("click", () => {
+        tabButtons.forEach(b => b.setAttribute("aria-selected", "false"));
+        btn.setAttribute("aria-selected", "true");
+
+        embeds.forEach(e => e.classList.remove("active"));
+        const target = document.querySelector(btn.dataset.target);
+        if (target) target.classList.add("active");
+      });
+    });
+  </script>
 </body>
 </html>
