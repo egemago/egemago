@@ -29,7 +29,6 @@
       font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
       color:#f2f2f2;
 
-      /* Background */
       background:
         radial-gradient(circle at center, rgba(11,16,32,0.35) 0%, rgba(0,0,0,0.85) 70%),
         linear-gradient(var(--overlay), var(--overlay)),
@@ -52,7 +51,6 @@
       box-shadow: 0 10px 40px rgba(0,0,0,0.35);
     }
 
-    /* Header */
     .header{
       display:flex;
       gap:16px;
@@ -84,7 +82,6 @@
       margin:0;
     }
 
-    /* Chips */
     .chips{
       display:flex;
       flex-wrap:wrap;
@@ -102,7 +99,6 @@
       letter-spacing: 0.1px;
     }
 
-    /* Section titles */
     .sectionTitle{
       margin: 18px 0 10px;
       font-size: 0.78rem;
@@ -111,7 +107,6 @@
       color: rgba(255,255,255,0.55);
     }
 
-    /* Link buttons */
     .links{
       display:flex;
       flex-direction:column;
@@ -153,7 +148,6 @@
       min-width: 0;
     }
 
-    /* Social logos — forced identical box */
     .socialLogo{
       width:22px;
       height:22px;
@@ -178,7 +172,6 @@
       flex:0 0 auto;
     }
 
-    /* Extended bio */
     .bioBox{
       background: rgba(255,255,255,0.08);
       border:1px solid rgba(255,255,255,0.12);
@@ -189,7 +182,6 @@
       font-size: 0.98rem;
     }
 
-    /* Media cards (I AM) */
     .mediaGrid{
       display:flex;
       flex-direction:column;
@@ -206,12 +198,11 @@
       border:1px solid rgba(255,255,255,0.12);
     }
 
-    /* show full cover, remove side padding/empty feel */
     .mediaThumb{
       width:92px;
       height:132px;
       border-radius:14px;
-      object-fit: cover;     /* fills the box */
+      object-fit: cover;
       object-position: center;
       border:1px solid rgba(255,255,255,0.14);
       flex:0 0 auto;
@@ -219,9 +210,7 @@
       background: rgba(0,0,0,0.15);
     }
 
-    .mediaText{
-      min-width:0;
-    }
+    .mediaText{ min-width:0; }
 
     .mediaTitle{
       margin:0;
@@ -234,7 +223,6 @@
       font-size: 0.98rem;
     }
 
-    /* Listening To */
     .listenGrid{
       display:flex;
       flex-direction:column;
@@ -257,15 +245,13 @@
       width:76px;
       height:76px;
       border-radius:14px;
-      object-fit: cover;     /* square + consistent */
+      object-fit: cover;
       border:1px solid rgba(255,255,255,0.14);
       display:block;
       background: rgba(0,0,0,0.15);
     }
 
-    .trackMeta{
-      min-width:0;
-    }
+    .trackMeta{ min-width:0; }
 
     .trackName{
       margin:0;
@@ -301,13 +287,60 @@
       flex:0 0 auto;
       transition: transform .12s ease, background .18s ease;
       user-select:none;
+      -webkit-tap-highlight-color: transparent;
     }
     .playBtn:hover{ transform: translateY(-1px); background: rgba(255,255,255,0.16); }
     .playIcon{ font-size: 0.95rem; opacity: 0.92; }
 
+    /* ✅ Desktop scrub fix:
+       - Force the range input to be on top and clickable.
+       - Avoid any overlay/pseudo element stealing clicks.
+       - Improve pointer behavior across browsers.
+    */
     .scrub{
       width:100%;
       accent-color: rgba(255,255,255,0.75);
+      position: relative;
+      z-index: 5;
+      pointer-events: auto;
+      cursor: pointer;
+      touch-action: none; /* helps pointer events behave consistently */
+      -webkit-appearance: none;
+      appearance: none;
+      height: 18px; /* slightly taller hit target */
+      background: transparent;
+      padding: 0; margin: 0;
+    }
+
+    /* WebKit track/thumb styling keeps it clickable and consistent */
+    .scrub::-webkit-slider-runnable-track{
+      height: 4px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.22);
+    }
+    .scrub::-webkit-slider-thumb{
+      -webkit-appearance: none;
+      appearance: none;
+      width: 12px;
+      height: 12px;
+      margin-top: -4px; /* centers thumb on 4px track */
+      border-radius: 50%;
+      background: rgba(255,255,255,0.85);
+      border: 1px solid rgba(0,0,0,0.25);
+    }
+
+    /* Firefox track/thumb */
+    .scrub::-moz-range-track{
+      height: 4px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.22);
+    }
+    .scrub::-moz-range-thumb{
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.85);
+      border: 1px solid rgba(0,0,0,0.25);
     }
 
     .timeRow{
@@ -342,7 +375,6 @@
 
 <body>
   <main>
-    <!-- HEADER -->
     <div class="header">
       <img class="pfp" src="assets/profile.webp" alt="Profile photo">
       <div>
@@ -352,7 +384,6 @@
       </div>
     </div>
 
-    <!-- CHIPS -->
     <div class="chips" aria-label="Quick info">
       <div class="chip">he/him</div>
       <div class="chip">20</div>
@@ -360,7 +391,6 @@
       <div class="chip">EN / ES</div>
     </div>
 
-    <!-- LINKS -->
     <section class="links" aria-label="Social links">
       <a class="button" href="https://twitter.com/egemago" target="_blank" rel="noopener">
         <span class="leftWrap">
@@ -403,13 +433,11 @@
       </a>
     </section>
 
-    <!-- EXTENDED BIO -->
     <div class="sectionTitle">Extended Bio</div>
     <div class="bioBox">
       My name's Roberto. I mainly discuss music, but I love books, film, anime, manga, the gym, and Tottenham Hotspur. I was born in El Salvador, but have lived in Baltimore for most of my life. I am currently an Accounting and Finance major and a studying socialist.
     </div>
 
-    <!-- I AM -->
     <div class="sectionTitle">I Am</div>
     <div class="mediaGrid" aria-label="Currently reading and watching">
       <div class="mediaCard">
@@ -429,10 +457,8 @@
       </div>
     </div>
 
-    <!-- LISTENING TO -->
     <div class="sectionTitle">Listening To</div>
     <div class="listenGrid" aria-label="Music player">
-      <!-- Track 1 -->
       <div class="trackCard" data-track>
         <img class="albumCover" src="assets/englishsettlement-logo.jpg" alt="English Settlement cover">
         <div class="trackMeta">
@@ -455,7 +481,6 @@
         </div>
       </div>
 
-      <!-- Track 2 -->
       <div class="trackCard" data-track>
         <img class="albumCover" src="assets/bizarreride-logo.jpg" alt="Bizarre Ride II the Pharcyde cover">
         <div class="trackMeta">
@@ -478,7 +503,6 @@
         </div>
       </div>
 
-      <!-- Track 3 -->
       <div class="trackCard" data-track>
         <img class="albumCover" src="assets/wallsocket-logo.webp" alt="Wallsocket cover">
         <div class="trackMeta">
@@ -506,9 +530,8 @@
   </main>
 
   <script>
-    // Simple playlist logic: one track plays at a time + custom controls.
+    // One track plays at a time + robust seek (desktop + mobile).
     const tracks = Array.from(document.querySelectorAll('[data-track]'));
-    let current = null;
 
     const fmt = (t) => {
       if (!isFinite(t) || t < 0) return "0:00";
@@ -542,14 +565,18 @@
       const cur = card.querySelector('.curTime');
       const dur = card.querySelector('.durTime');
 
+      let isSeeking = false;
+
       audio.addEventListener('loadedmetadata', () => {
         dur.textContent = fmt(audio.duration);
       });
 
       audio.addEventListener('timeupdate', () => {
         if (!audio.duration) return;
-        const pct = (audio.currentTime / audio.duration) * 100;
-        scrub.value = String(pct);
+        if (!isSeeking) {
+          const pct = (audio.currentTime / audio.duration) * 100;
+          scrub.value = String(pct);
+        }
         cur.textContent = fmt(audio.currentTime);
       });
 
@@ -560,15 +587,12 @@
       });
 
       playBtn.addEventListener('click', async () => {
-        // user gesture -> safe to call play()
         if (audio.paused) {
           stopOthers(audio);
           try {
             await audio.play();
             setButton(card, true);
-            current = audio;
           } catch (e) {
-            // If this throws, it’s usually because the file didn’t load correctly.
             console.warn("Audio play failed:", e);
             setButton(card, false);
           }
@@ -578,10 +602,52 @@
         }
       });
 
+      // ✅ Robust seeking across desktop + mobile using Pointer Events.
+      // We compute the desired time from the pointer position, not just the range "input" event.
+      function seekFromEvent(e){
+        if (!audio.duration) return;
+        const rect = scrub.getBoundingClientRect();
+        const clientX = (e.touches && e.touches[0]) ? e.touches[0].clientX : e.clientX;
+        const x = Math.min(Math.max(clientX - rect.left, 0), rect.width);
+        const pct = rect.width ? (x / rect.width) : 0;
+        audio.currentTime = pct * audio.duration;
+        scrub.value = String(pct * 100);
+        cur.textContent = fmt(audio.currentTime);
+      }
+
+      // Keep input handler too (keyboard accessibility)
       scrub.addEventListener('input', () => {
         if (!audio.duration) return;
         const pct = Number(scrub.value) / 100;
         audio.currentTime = pct * audio.duration;
+      });
+
+      // Pointer-based dragging/clicking
+      scrub.addEventListener('pointerdown', (e) => {
+        isSeeking = true;
+        scrub.setPointerCapture?.(e.pointerId);
+        seekFromEvent(e);
+      });
+
+      scrub.addEventListener('pointermove', (e) => {
+        if (!isSeeking) return;
+        seekFromEvent(e);
+      });
+
+      scrub.addEventListener('pointerup', (e) => {
+        if (!isSeeking) return;
+        seekFromEvent(e);
+        isSeeking = false;
+        scrub.releasePointerCapture?.(e.pointerId);
+      });
+
+      scrub.addEventListener('pointercancel', () => {
+        isSeeking = false;
+      });
+
+      // Extra safety: clicking the bar (not dragging) should still seek on desktop
+      scrub.addEventListener('click', (e) => {
+        seekFromEvent(e);
       });
     });
   </script>
