@@ -1,0 +1,4 @@
+/assets/audio/*.mp3
+  Content-Type: audio/mpeg
+  Accept-Ranges: bytes
+  Cache-Control: public, max-age=31536000, immutable, no-transform
