@@ -28,10 +28,18 @@
       font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
       color: #f2f2f2;
 
+      /* ✅ Background image focus control:
+         Adjust background-position until Rei/Shinji/Asuka sits behind the card.
+         Examples:
+           background-position: center center;
+           background-position: 60% 35%;
+           background-position: 70% 50%;
+      */
       background:
         radial-gradient(circle at center, rgba(11,16,32,0.35) 0%, rgba(0,0,0,0.85) 70%),
         linear-gradient(var(--overlay), var(--overlay)),
         url("assets/bg.png") center / cover no-repeat;
+      background-position: 60% 35%; /* <-- tweak this line */
 
       display: flex;
       justify-content: center;
@@ -70,42 +78,13 @@
       flex: 0 0 88px;
     }
 
-    .profileText{
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      flex: 1;
-      min-width: 0;
-    }
-
-    .nameRow{
-      display: flex;
-      align-items: baseline;
-      gap: 12px;
-      flex-wrap: nowrap;
-      min-width: 0;
-      width: 100%;
-    }
-
     .nameRow h1{
       margin: 0;
       font-size: 2.35rem;
       font-weight: 600;
       line-height: 1.05;
       letter-spacing: 0.3px;
-      flex: 0 0 auto;
       white-space: nowrap;
-    }
-
-    .handle{
-      font-size: 1.12rem;
-      color: var(--text-dimmer);
-      line-height: 1.1;
-      flex: 1 1 auto;          /* fill remaining header width */
-      min-width: 0;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis; /* if viewport is tiny */
     }
 
     /* ---------- CHIPS ---------- */
@@ -154,17 +133,28 @@
       transform: translateY(-1px);
     }
 
-    .label{
+    .linkLeft{
       display: flex;
-      flex-direction: column;
-      align-items: flex-start;
+      align-items: center;
+      gap: 12px;
       min-width: 0;
     }
 
-    .label strong{
+    /* ✅ Logo sizing:
+       These dimensions are the *exact* displayed size for every icon. */
+    .linkIcon{
+      width: 26px;
+      height: 26px;
+      flex: 0 0 26px;
+      object-fit: contain;
+      display: block;
+    }
+
+    .linkTitle{
       font-size: 1.05rem;
       font-weight: 600;
       line-height: 1.2;
+      white-space: nowrap;
     }
 
     .arrow{
@@ -203,7 +193,7 @@
 
     .mediaCard{
       display: grid;
-      grid-template-columns: 120px 1fr; /* bigger image column */
+      grid-template-columns: 112px 1fr; /* portrait cover column */
       gap: 14px;
       align-items: center;
       border: 1px solid var(--border);
@@ -212,15 +202,18 @@
       padding: 14px;
     }
 
+    /* ✅ Portrait cover container to remove left/right empty space
+       while still showing the full cover (no cropping). */
     .mediaThumb{
-      width: 120px;
-      height: 120px;
+      width: 112px;
+      aspect-ratio: 2 / 3;  /* portrait */
+      height: auto;
       border-radius: 14px;
       border: 1px solid var(--border);
       background: rgba(255,255,255,0.04);
-
-      object-fit: contain;     /* show full cover */
+      object-fit: contain;   /* full image visible */
       object-position: center;
+      display: block;
     }
 
     .mediaTitle{
@@ -248,13 +241,9 @@
       .avatar{ width: 72px; height: 72px; }
       .nameRow h1{ font-size: 2.1rem; }
 
-      .mediaCard{
-        grid-template-columns: 110px 1fr;
-      }
-      .mediaThumb{
-        width: 110px;
-        height: 110px;
-      }
+      .mediaCard{ grid-template-columns: 104px 1fr; }
+      .mediaThumb{ width: 104px; }
+      .linkIcon{ width: 26px; height: 26px; } /* stays exact on mobile too */
     }
   </style>
 </head>
@@ -265,15 +254,12 @@
     <!-- HEADER -->
     <div class="profile">
       <img class="avatar" src="assets/profile.webp" alt="Profile photo">
-      <div class="profileText">
-        <div class="nameRow">
-          <h1>Roberto💿</h1>
-          <div class="handle">@egemago</div>
-        </div>
+      <div class="nameRow">
+        <h1>Roberto💿</h1>
       </div>
     </div>
 
-    <!-- CHIPS (values only) -->
+    <!-- CHIPS -->
     <div class="chipRow" aria-label="Quick facts">
       <div class="chip">he/him</div>
       <div class="chip">20</div>
@@ -281,25 +267,37 @@
       <div class="chip">EN / ES</div>
     </div>
 
-    <!-- LINKS (no usernames/subtitles) -->
+    <!-- LINKS (with logos) -->
     <section class="links" aria-label="Social links">
       <a class="button" href="https://x.com/egemago" target="_blank" rel="noopener">
-        <span class="label"><strong>Twitter</strong></span>
+        <span class="linkLeft">
+          <img class="linkIcon" src="assets/twitter-logo.png" alt="Twitter logo">
+          <span class="linkTitle">Twitter</span>
+        </span>
         <span class="arrow">↗</span>
       </a>
 
       <a class="button" href="https://letterboxd.com/stoneyend/" target="_blank" rel="noopener">
-        <span class="label"><strong>Letterboxd</strong></span>
+        <span class="linkLeft">
+          <img class="linkIcon" src="assets/letterboxd-logo.png" alt="Letterboxd logo">
+          <span class="linkTitle">Letterboxd</span>
+        </span>
         <span class="arrow">↗</span>
       </a>
 
       <a class="button" href="https://rateyourmusic.com/~egemago" target="_blank" rel="noopener">
-        <span class="label"><strong>RYM</strong></span>
+        <span class="linkLeft">
+          <img class="linkIcon" src="assets/rym-logo.png" alt="RYM logo">
+          <span class="linkTitle">RYM</span>
+        </span>
         <span class="arrow">↗</span>
       </a>
 
       <a class="button" href="https://www.last.fm/user/egemago" target="_blank" rel="noopener">
-        <span class="label"><strong>last.fm</strong></span>
+        <span class="linkLeft">
+          <img class="linkIcon" src="assets/lastfm-logo.png" alt="last.fm logo">
+          <span class="linkTitle">last.fm</span>
+        </span>
         <span class="arrow">↗</span>
       </a>
     </section>
