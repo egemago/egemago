@@ -10,33 +10,30 @@
   <style>
     :root{
       --overlay: rgba(0,0,0,0.18);
-      --card-bg: rgba(16,16,24,0.68);
+      --card-bg: rgba(16, 16, 24, 0.68);
       --border: rgba(255,255,255,0.12);
       --button: rgba(255,255,255,0.12);
       --button-hover: rgba(255,255,255,0.22);
       --text-dim: rgba(255,255,255,0.72);
+      --text-dimmer: rgba(255,255,255,0.58);
+      --chip: rgba(255,255,255,0.10);
+      --chip-border: rgba(255,255,255,0.14);
     }
 
-    * { box-sizing: border-box; }
+    *{ box-sizing:border-box; }
+    html, body{ height:100%; }
 
     body{
       margin:0;
       min-height:100vh;
-      font-family: "Inter", sans-serif;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
       color:#f2f2f2;
 
       /* Background */
       background:
         radial-gradient(circle at center, rgba(11,16,32,0.35) 0%, rgba(0,0,0,0.85) 70%),
         linear-gradient(var(--overlay), var(--overlay)),
-        url("assets/bg.png");
-
-      /* IMPORTANT for positioning your background focal point */
-      background-size: cover;
-      background-repeat: no-repeat;
-
-      /* Tweak this to move Rei/Shinji/Asuka behind your card */
-      background-position: center 55%;
+        url("assets/bg.png") center 58% / cover no-repeat;
 
       display:flex;
       justify-content:center;
@@ -46,95 +43,96 @@
 
     main{
       width:100%;
-      max-width: 520px;
+      max-width:520px;
       background: var(--card-bg);
       backdrop-filter: blur(14px);
       border-radius: 22px;
       border: 1px solid var(--border);
-      padding: 28px;
+      padding: 24px;
       box-shadow: 0 10px 40px rgba(0,0,0,0.35);
     }
 
     /* Header */
     .header{
       display:flex;
-      align-items:center;
       gap:16px;
-      margin-bottom: 14px;
+      align-items:center;
+      margin-bottom:14px;
     }
 
-    .avatar{
-      width:78px;
-      height:78px;
-      border-radius: 18px;
-      object-fit: cover;
-      border: 1px solid rgba(255,255,255,0.18);
+    .pfp{
+      width:72px;
+      height:72px;
+      border-radius:16px;
+      object-fit:cover;
+      border:1px solid rgba(255,255,255,0.16);
       flex: 0 0 auto;
     }
 
     .nameRow{
       display:flex;
-      align-items: baseline;
-      gap: 10px;
-      flex-wrap: wrap;
-      line-height: 1.05;
+      align-items:baseline;
+      gap:10px;
+      flex-wrap:wrap;
     }
 
-    .name{
-      font-size: 2.35rem;
+    .displayName{
+      font-size: 2.15rem;
       font-weight: 600;
       letter-spacing: 0.2px;
+      line-height: 1.05;
       margin:0;
     }
 
-    /* Pills */
-    .meta{
+    /* Chips */
+    .chips{
       display:flex;
-      flex-wrap: wrap;
+      flex-wrap:wrap;
       gap:10px;
-      margin: 14px 0 18px;
+      margin: 10px 0 18px;
     }
 
-    .pill{
-      padding: 10px 14px;
-      border-radius: 999px;
-      background: rgba(255,255,255,0.08);
-      border: 1px solid rgba(255,255,255,0.12);
-      color: rgba(255,255,255,0.88);
+    .chip{
+      padding:8px 12px;
+      border-radius:999px;
+      background: var(--chip);
+      border:1px solid var(--chip-border);
       font-size: 0.95rem;
-      line-height: 1;
+      color: rgba(255,255,255,0.88);
+      letter-spacing: 0.1px;
     }
 
-    /* Section labels */
+    /* Section titles */
     .sectionTitle{
-      margin-top: 18px;
-      margin-bottom: 10px;
+      margin: 18px 0 10px;
       font-size: 0.78rem;
       letter-spacing: 0.22em;
       text-transform: uppercase;
-      opacity: 0.7;
+      color: rgba(255,255,255,0.55);
     }
 
-    /* Social links */
+    /* Link buttons */
     .links{
       display:flex;
-      flex-direction: column;
+      flex-direction:column;
       gap:12px;
-      margin-bottom: 16px;
+      margin-top: 2px;
     }
 
     a.button{
       display:flex;
       align-items:center;
-      justify-content: space-between;
-      gap: 12px;
-      padding: 14px 14px;
-      border-radius: 14px;
+      justify-content:space-between;
+      gap:12px;
+
+      padding:14px 14px;
+      border-radius:14px;
       text-decoration:none;
-      color: #fff;
+      color:#ffffff;
+
       background: var(--button);
-      border: 1px solid var(--border);
-      font-weight: 600;
+      border:1px solid var(--border);
+
       transition: background 0.2s ease, transform 0.15s ease;
     }
 
@@ -144,89 +142,85 @@
     }
 
     a.button:focus{
-      outline: 3px solid rgba(255,255,255,0.4);
+      outline: 3px solid rgba(255,255,255,0.40);
       outline-offset: 2px;
     }
 
-    .btnLeft{
+    .leftWrap{
       display:flex;
       align-items:center;
-      gap: 12px;
+      gap:12px;
       min-width: 0;
     }
 
-    /* Make ALL logos identical size & alignment */
-    .logo{
-      width: 22px;
-      height: 22px;
+    /* Social logos — forced identical box */
+    .socialLogo{
+      width:22px;
+      height:22px;
+      object-fit:contain;
       flex: 0 0 22px;
-      object-fit: contain;
       display:block;
-      opacity: 0.95;
     }
 
-    .btnText{
-      font-size: 1.03rem;
+    .linkText{
+      font-size: 1.02rem;
+      font-weight: 600;
+      letter-spacing: 0.1px;
       white-space: nowrap;
-      overflow: hidden;
+      overflow:hidden;
       text-overflow: ellipsis;
     }
 
     .arrow{
-      opacity: 0.6;
+      opacity:0.65;
       font-size: 1.1rem;
       margin-left: 8px;
-      flex: 0 0 auto;
+      flex:0 0 auto;
     }
 
-    /* Bio card */
-    .bioCard{
+    /* Extended bio */
+    .bioBox{
       background: rgba(255,255,255,0.08);
-      border: 1px solid rgba(255,255,255,0.12);
-      border-radius: 14px;
-      padding: 14px 14px;
-      color: rgba(255,255,255,0.85);
+      border:1px solid rgba(255,255,255,0.12);
+      border-radius:14px;
+      padding:14px;
+      color: rgba(255,255,255,0.86);
       line-height: 1.5;
+      font-size: 0.98rem;
     }
 
-    /* "I AM" / media cards */
+    /* Media cards (I AM) */
     .mediaGrid{
       display:flex;
-      flex-direction: column;
-      gap: 12px;
+      flex-direction:column;
+      gap:12px;
     }
 
     .mediaCard{
       display:flex;
-      align-items: center;
-      gap: 16px;
-      background: rgba(255,255,255,0.08);
-      border: 1px solid rgba(255,255,255,0.12);
-      border-radius: 16px;
-      padding: 14px;
+      gap:14px;
+      align-items:center;
+      padding:14px;
+      border-radius:16px;
+      background: rgba(255,255,255,0.10);
+      border:1px solid rgba(255,255,255,0.12);
     }
 
-    /* Show entire image with NO empty left/right space */
-    .mediaThumbWrap{
-      width: 96px;
-      height: 96px;
-      border-radius: 14px;
-      overflow: hidden;
-      border: 1px solid rgba(255,255,255,0.14);
-      flex: 0 0 96px;
-      background: rgba(0,0,0,0.18);
-    }
-
+    /* show full cover, remove side padding/empty feel */
     .mediaThumb{
-      width: 100%;
-      height: 100%;
-      object-fit: cover;   /* fills box */
+      width:92px;
+      height:132px;
+      border-radius:14px;
+      object-fit: cover;     /* fills the box */
       object-position: center;
+      border:1px solid rgba(255,255,255,0.14);
+      flex:0 0 auto;
       display:block;
+      background: rgba(0,0,0,0.15);
     }
 
     .mediaText{
-      min-width: 0;
+      min-width:0;
     }
 
     .mediaTitle{
@@ -234,150 +228,101 @@
       font-size: 1.05rem;
       font-weight: 600;
     }
-
     .mediaSub{
-      margin: 6px 0 0;
+      margin:4px 0 0;
       color: var(--text-dim);
-      font-size: 1rem;
+      font-size: 0.98rem;
     }
 
-    /* Listening To grid */
+    /* Listening To */
     .listenGrid{
-      display:grid;
-      grid-template-columns: 1fr;
-      gap: 12px;
+      display:flex;
+      flex-direction:column;
+      gap:12px;
     }
 
     .trackCard{
       display:grid;
-      grid-template-columns: 96px 1fr;
-      gap: 14px;
-      align-items: center;
-      background: rgba(255,255,255,0.08);
-      border: 1px solid rgba(255,255,255,0.12);
-      border-radius: 16px;
-      padding: 14px;
+      grid-template-columns: 76px 1fr;
+      gap:14px;
+      align-items:center;
+
+      padding:14px;
+      border-radius:16px;
+      background: rgba(255,255,255,0.10);
+      border:1px solid rgba(255,255,255,0.12);
     }
 
-    /* Album covers: identical size & dimensions */
     .albumCover{
-      width: 96px;
-      height: 96px;
-      border-radius: 14px;
-      overflow: hidden;
-      border: 1px solid rgba(255,255,255,0.14);
-      background: rgba(0,0,0,0.18);
-      position: relative;
-      cursor: pointer;
-    }
-
-    .albumCover img{
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
+      width:76px;
+      height:76px;
+      border-radius:14px;
+      object-fit: cover;     /* square + consistent */
+      border:1px solid rgba(255,255,255,0.14);
       display:block;
-    }
-
-    .playOverlay{
-      position:absolute;
-      inset:0;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      background: rgba(0,0,0,0.25);
-      opacity: 0;
-      transition: opacity .15s ease;
-    }
-
-    .albumCover:hover .playOverlay{
-      opacity: 1;
-    }
-
-    .playBtn{
-      width: 44px;
-      height: 44px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,0.20);
-      background: rgba(255,255,255,0.14);
-      backdrop-filter: blur(10px);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      font-size: 18px;
-    }
-
-    .trackInfo{
-      min-width:0;
-    }
-
-    .trackTitle{
-      margin:0;
-      font-size: 1.05rem;
-      font-weight: 600;
+      background: rgba(0,0,0,0.15);
     }
 
     .trackMeta{
-      margin: 6px 0 10px;
+      min-width:0;
+    }
+
+    .trackName{
+      margin:0;
+      font-size: 1.03rem;
+      font-weight: 600;
+      line-height: 1.2;
+    }
+
+    .trackSub{
+      margin:4px 0 10px;
       color: var(--text-dim);
-      font-size: 0.98rem;
-      line-height: 1.35;
+      font-size: 0.95rem;
+      line-height: 1.2;
     }
 
     .playerRow{
       display:flex;
       align-items:center;
-      gap: 10px;
+      gap:10px;
     }
 
-    .smallPlay{
-      width: 36px;
-      height: 36px;
-      border-radius: 12px;
-      border: 1px solid rgba(255,255,255,0.18);
-      background: rgba(255,255,255,0.12);
-      color: #fff;
-      cursor:pointer;
+    .playBtn{
+      width:34px;
+      height:34px;
+      border-radius:12px;
+      border:1px solid rgba(255,255,255,0.18);
+      background: rgba(255,255,255,0.10);
+      color:#fff;
       display:flex;
       align-items:center;
       justify-content:center;
-      font-size: 14px;
-      flex: 0 0 auto;
-    }
-
-    .progressWrap{
-      flex: 1 1 auto;
-      min-width: 0;
-      display:flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-
-    .progressBar{
-      width:100%;
-      height: 6px;
-      border-radius: 999px;
-      background: rgba(255,255,255,0.14);
-      overflow:hidden;
       cursor:pointer;
+      flex:0 0 auto;
+      transition: transform .12s ease, background .18s ease;
+      user-select:none;
     }
+    .playBtn:hover{ transform: translateY(-1px); background: rgba(255,255,255,0.16); }
+    .playIcon{ font-size: 0.95rem; opacity: 0.92; }
 
-    .progressFill{
-      height: 100%;
-      width: 0%;
-      background: rgba(255,255,255,0.55);
+    .scrub{
+      width:100%;
+      accent-color: rgba(255,255,255,0.75);
     }
 
     .timeRow{
       display:flex;
-      justify-content: space-between;
+      justify-content:space-between;
+      margin-top:6px;
+      color: var(--text-dimmer);
       font-size: 0.82rem;
-      color: rgba(255,255,255,0.72);
+      letter-spacing: 0.02em;
     }
 
     footer{
-      margin-top: 18px;
-      font-size: 0.75rem;
-      opacity: 0.6;
+      margin-top:18px;
+      font-size:0.75rem;
+      opacity:0.6;
       text-align:center;
     }
 
@@ -385,102 +330,90 @@
       body{ padding: 28px 12px; }
       main{ padding: 22px; }
 
-      .avatar{ width:72px; height:72px; border-radius: 16px; }
-      .name{ font-size: 2.15rem; }
+      .displayName{ font-size: 2.0rem; }
+      .pfp{ width:68px; height:68px; border-radius:16px; }
 
-      .mediaThumbWrap,
-      .albumCover{
-        width: 92px;
-        height: 92px;
-        border-radius: 14px;
-        flex-basis: 92px;
-      }
-
-      .trackCard{
-        grid-template-columns: 92px 1fr;
-      }
+      .mediaThumb{ width:86px; height:124px; }
+      .trackCard{ grid-template-columns: 72px 1fr; }
+      .albumCover{ width:72px; height:72px; }
     }
   </style>
 </head>
 
 <body>
   <main>
-    <!-- Header -->
+    <!-- HEADER -->
     <div class="header">
-      <img class="avatar" src="assets/profile.webp" alt="Profile photo">
+      <img class="pfp" src="assets/profile.webp" alt="Profile photo">
       <div>
         <div class="nameRow">
-          <h1 class="name">Roberto💿</h1>
+          <h1 class="displayName">Roberto 💿</h1>
         </div>
       </div>
     </div>
 
-    <!-- Meta pills (no labels) -->
-    <div class="meta" aria-label="Quick info">
-      <div class="pill">he/him</div>
-      <div class="pill">20</div>
-      <div class="pill">Baltimore</div>
-      <div class="pill">EN / ES</div>
+    <!-- CHIPS -->
+    <div class="chips" aria-label="Quick info">
+      <div class="chip">he/him</div>
+      <div class="chip">20</div>
+      <div class="chip">Baltimore</div>
+      <div class="chip">EN / ES</div>
     </div>
 
-    <!-- Links -->
-    <div class="links" aria-label="Social links">
+    <!-- LINKS -->
+    <section class="links" aria-label="Social links">
       <a class="button" href="https://twitter.com/egemago" target="_blank" rel="noopener">
-        <div class="btnLeft">
-          <img class="logo" src="assets/twitter-logo.png" alt="Twitter logo">
-          <div class="btnText">Twitter</div>
-        </div>
-        <div class="arrow">↗</div>
+        <span class="leftWrap">
+          <img class="socialLogo" src="assets/twitter-logo.png" alt="">
+          <span class="linkText">Twitter</span>
+        </span>
+        <span class="arrow">↗</span>
       </a>
 
       <a class="button" href="https://letterboxd.com/stoneyend/" target="_blank" rel="noopener">
-        <div class="btnLeft">
-          <img class="logo" src="assets/letterboxd-logo.png" alt="Letterboxd logo">
-          <div class="btnText">Letterboxd</div>
-        </div>
-        <div class="arrow">↗</div>
+        <span class="leftWrap">
+          <img class="socialLogo" src="assets/letterboxd-logo.png" alt="">
+          <span class="linkText">Letterboxd</span>
+        </span>
+        <span class="arrow">↗</span>
       </a>
 
       <a class="button" href="https://rateyourmusic.com/~egemago" target="_blank" rel="noopener">
-        <div class="btnLeft">
-          <img class="logo" src="assets/rym-logo.png" alt="RYM logo">
-          <div class="btnText">RYM</div>
-        </div>
-        <div class="arrow">↗</div>
+        <span class="leftWrap">
+          <img class="socialLogo" src="assets/rym-logo.png" alt="">
+          <span class="linkText">RYM</span>
+        </span>
+        <span class="arrow">↗</span>
       </a>
 
       <a class="button" href="https://www.last.fm/user/egemago" target="_blank" rel="noopener">
-        <div class="btnLeft">
-          <img class="logo" src="assets/lastfm-logo.png" alt="last.fm logo">
-          <div class="btnText">last.fm</div>
-        </div>
-        <div class="arrow">↗</div>
+        <span class="leftWrap">
+          <img class="socialLogo" src="assets/lastfm-logo.png" alt="">
+          <span class="linkText">last.fm</span>
+        </span>
+        <span class="arrow">↗</span>
       </a>
 
       <a class="button" href="https://music.apple.com/profile/egemago" target="_blank" rel="noopener">
-        <div class="btnLeft">
-          <img class="logo" src="assets/applemusic-logo.png" alt="Apple Music logo">
-          <div class="btnText">Apple Music</div>
-        </div>
-        <div class="arrow">↗</div>
+        <span class="leftWrap">
+          <img class="socialLogo" src="assets/applemusic-logo.png" alt="">
+          <span class="linkText">Apple Music</span>
+        </span>
+        <span class="arrow">↗</span>
       </a>
-    </div>
+    </section>
 
-    <!-- Extended Bio -->
+    <!-- EXTENDED BIO -->
     <div class="sectionTitle">Extended Bio</div>
-    <div class="bioCard">
-      My name's Roberto. I mainly discuss music, but I love books, film, anime, manga, the gym, and Tottenham Hotspur.
-      I was born in El Salvador, but have lived in Baltimore for most of my life. I am currently an Accounting and Finance
-      major and a studying socialist.
+    <div class="bioBox">
+      My name's Roberto. I mainly discuss music, but I love books, film, anime, manga, the gym, and Tottenham Hotspur. I was born in El Salvador, but have lived in Baltimore for most of my life. I am currently an Accounting and Finance major and a studying socialist.
     </div>
 
     <!-- I AM -->
-    <div class="sectionTitle">I AM</div>
+    <div class="sectionTitle">I Am</div>
     <div class="mediaGrid" aria-label="Currently reading and watching">
       <div class="mediaCard">
-        <div class="mediaThumbWrap">
-          <img class="mediaThumb" src="assets/wuthering-heights.jpeg" alt="Cover of Wuthering Heights by Emily Brontë">
-        </div>
+        <img class="mediaThumb" src="assets/wuthering-heights.jpeg" alt="Cover of Wuthering Heights by Emily Brontë">
         <div class="mediaText">
           <p class="mediaTitle">Currently Reading</p>
           <p class="mediaSub">Wuthering Heights by Emily Brontë</p>
@@ -488,9 +421,7 @@
       </div>
 
       <div class="mediaCard">
-        <div class="mediaThumbWrap">
-          <img class="mediaThumb" src="assets/twin-peaks.jpeg" alt="Twin Peaks">
-        </div>
+        <img class="mediaThumb" src="assets/twin-peaks.jpeg" alt="Twin Peaks">
         <div class="mediaText">
           <p class="mediaTitle">Currently Rewatching</p>
           <p class="mediaSub">Twin Peaks</p>
@@ -498,69 +429,161 @@
       </div>
     </div>
 
-    <!-- Listening To -->
+    <!-- LISTENING TO -->
     <div class="sectionTitle">Listening To</div>
-
-    <div class="listenGrid" aria-label="Tracks">
+    <div class="listenGrid" aria-label="Music player">
       <!-- Track 1 -->
-      <div class="trackCard" data-audio="track1">
-        <div class="albumCover" data-action="toggle" aria-label="Play Jason and the Argonauts">
-          <img src="assets/englishsettlement-logo.jpg" alt="English Settlement cover">
-          <div class="playOverlay"><div class="playBtn">▶</div></div>
-        </div>
-
-        <div class="trackInfo">
-          <p class="trackTitle">Jason and the Argonauts</p>
-          <p class="trackMeta">XTC • <em>English Settlement</em></p>
+      <div class="trackCard" data-track>
+        <img class="albumCover" src="assets/englishsettlement-logo.jpg" alt="English Settlement cover">
+        <div class="trackMeta">
+          <p class="trackName">Jason and the Argonauts</p>
+          <p class="trackSub">XTC • <em>English Settlement</em></p>
 
           <div class="playerRow">
-            <button class="smallPlay" data-action="toggle" aria-label="Play/Pause">▶</button>
-
-            <div class="progressWrap">
-              <div class="progressBar" data-action="seek" aria-label="Seek">
-                <div class="progressFill"></div>
-              </div>
-              <div class="timeRow">
-                <span class="cur">0:00</span>
-                <span class="dur">0:00</span>
-              </div>
-            </div>
+            <button class="playBtn" type="button" aria-label="Play/Pause">
+              <span class="playIcon">▶</span>
+            </button>
+            <input class="scrub" type="range" min="0" max="100" value="0" step="0.1" aria-label="Seek">
           </div>
 
-          <audio id="track1" preload="metadata" src="assets/audio/jason-and-the-argonauts.mp3"></audio>
+          <div class="timeRow">
+            <span class="curTime">0:00</span>
+            <span class="durTime">0:00</span>
+          </div>
+
+          <audio preload="metadata" src="assets/audio/jason-and-the-argonauts.mp3"></audio>
         </div>
       </div>
 
       <!-- Track 2 -->
-      <div class="trackCard" data-audio="track2">
-        <div class="albumCover" data-action="toggle" aria-label="Play Otha Fish">
-          <img src="assets/bizarreride-logo.jpg" alt="Bizarre Ride II the Pharcyde cover">
-          <div class="playOverlay"><div class="playBtn">▶</div></div>
-        </div>
-
-        <div class="trackInfo">
-          <p class="trackTitle">Otha Fish</p>
-          <p class="trackMeta">The Pharcyde • <em>Bizarre Ride II the Pharcyde</em></p>
+      <div class="trackCard" data-track>
+        <img class="albumCover" src="assets/bizarreride-logo.jpg" alt="Bizarre Ride II the Pharcyde cover">
+        <div class="trackMeta">
+          <p class="trackName">Otha Fish</p>
+          <p class="trackSub">The Pharcyde • <em>Bizarre Ride II the Pharcyde</em></p>
 
           <div class="playerRow">
-            <button class="smallPlay" data-action="toggle" aria-label="Play/Pause">▶</button>
-
-            <div class="progressWrap">
-              <div class="progressBar" data-action="seek" aria-label="Seek">
-                <div class="progressFill"></div>
-              </div>
-              <div class="timeRow">
-                <span class="cur">0:00</span>
-                <span class="dur">0:00</span>
-              </div>
-            </div>
+            <button class="playBtn" type="button" aria-label="Play/Pause">
+              <span class="playIcon">▶</span>
+            </button>
+            <input class="scrub" type="range" min="0" max="100" value="0" step="0.1" aria-label="Seek">
           </div>
 
-          <audio id="track2" preload="metadata" src="assets/audio/otha-fish.mp3"></audio>
+          <div class="timeRow">
+            <span class="curTime">0:00</span>
+            <span class="durTime">0:00</span>
+          </div>
+
+          <audio preload="metadata" src="assets/audio/otha-fish.mp3"></audio>
         </div>
       </div>
 
       <!-- Track 3 -->
-      <div class="trackCard" data-audio="track3">
-        <div class="albumCover" data-action="toggle" aria-label="Play Locals (Girls like us)">
-          <img src="assets/walls
+      <div class="trackCard" data-track>
+        <img class="albumCover" src="assets/wallsocket-logo.webp" alt="Wallsocket cover">
+        <div class="trackMeta">
+          <p class="trackName">Locals (Girls like us)</p>
+          <p class="trackSub">underscores • <em>Wallsocket</em></p>
+
+          <div class="playerRow">
+            <button class="playBtn" type="button" aria-label="Play/Pause">
+              <span class="playIcon">▶</span>
+            </button>
+            <input class="scrub" type="range" min="0" max="100" value="0" step="0.1" aria-label="Seek">
+          </div>
+
+          <div class="timeRow">
+            <span class="curTime">0:00</span>
+            <span class="durTime">0:00</span>
+          </div>
+
+          <audio preload="metadata" src="assets/audio/locals-girls-like-us.mp3"></audio>
+        </div>
+      </div>
+    </div>
+
+    <footer>✦ built with Cloudflare Pages ✦</footer>
+  </main>
+
+  <script>
+    // Simple playlist logic: one track plays at a time + custom controls.
+    const tracks = Array.from(document.querySelectorAll('[data-track]'));
+    let current = null;
+
+    const fmt = (t) => {
+      if (!isFinite(t) || t < 0) return "0:00";
+      const m = Math.floor(t / 60);
+      const s = Math.floor(t % 60);
+      return `${m}:${String(s).padStart(2, "0")}`;
+    };
+
+    function setButton(card, playing){
+      const icon = card.querySelector('.playIcon');
+      icon.textContent = playing ? "❚❚" : "▶";
+    }
+
+    function stopOthers(exceptAudio){
+      tracks.forEach(card => {
+        const a = card.querySelector('audio');
+        if (a !== exceptAudio) {
+          a.pause();
+          a.currentTime = 0;
+          card.querySelector('.scrub').value = 0;
+          card.querySelector('.curTime').textContent = "0:00";
+          setButton(card, false);
+        }
+      });
+    }
+
+    tracks.forEach(card => {
+      const audio = card.querySelector('audio');
+      const playBtn = card.querySelector('.playBtn');
+      const scrub = card.querySelector('.scrub');
+      const cur = card.querySelector('.curTime');
+      const dur = card.querySelector('.durTime');
+
+      audio.addEventListener('loadedmetadata', () => {
+        dur.textContent = fmt(audio.duration);
+      });
+
+      audio.addEventListener('timeupdate', () => {
+        if (!audio.duration) return;
+        const pct = (audio.currentTime / audio.duration) * 100;
+        scrub.value = String(pct);
+        cur.textContent = fmt(audio.currentTime);
+      });
+
+      audio.addEventListener('ended', () => {
+        setButton(card, false);
+        scrub.value = 0;
+        cur.textContent = "0:00";
+      });
+
+      playBtn.addEventListener('click', async () => {
+        // user gesture -> safe to call play()
+        if (audio.paused) {
+          stopOthers(audio);
+          try {
+            await audio.play();
+            setButton(card, true);
+            current = audio;
+          } catch (e) {
+            // If this throws, it’s usually because the file didn’t load correctly.
+            console.warn("Audio play failed:", e);
+            setButton(card, false);
+          }
+        } else {
+          audio.pause();
+          setButton(card, false);
+        }
+      });
+
+      scrub.addEventListener('input', () => {
+        if (!audio.duration) return;
+        const pct = Number(scrub.value) / 100;
+        audio.currentTime = pct * audio.duration;
+      });
+    });
+  </script>
+</body>
+</html>
