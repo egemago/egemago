@@ -3,128 +3,138 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>egemago</title>
+  <title>Roberto</title>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 
   <style>
     :root{
-      --overlay: rgba(0, 0, 0, 0.18);
-      --card-bg: rgba(16, 16, 24, 0.68);
-      --border: rgba(255, 255, 255, 0.12);
-      --button: rgba(255, 255, 255, 0.12);
-      --button-hover: rgba(255, 255, 255, 0.22);
-      --text-dim: rgba(255, 255, 255, 0.72);
-      --text-dimmer: rgba(255, 255, 255, 0.55);
+      --overlay: rgba(0,0,0,0.18);
+      --card-bg: rgba(16,16,24,0.68);
+      --border: rgba(255,255,255,0.12);
+      --button: rgba(255,255,255,0.12);
+      --button-hover: rgba(255,255,255,0.22);
+      --text-dim: rgba(255,255,255,0.72);
     }
 
     * { box-sizing: border-box; }
 
     body{
-      margin: 0;
-      min-height: 100vh;
-      font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      color: #f2f2f2;
+      margin:0;
+      min-height:100vh;
+      font-family: "Inter", sans-serif;
+      color:#f2f2f2;
 
-      /* ✅ Background image focus control:
-         Adjust background-position until Rei/Shinji/Asuka sits behind the card.
-         Examples:
-           background-position: center center;
-           background-position: 60% 35%;
-           background-position: 70% 50%;
-      */
+      /* Background */
       background:
         radial-gradient(circle at center, rgba(11,16,32,0.35) 0%, rgba(0,0,0,0.85) 70%),
         linear-gradient(var(--overlay), var(--overlay)),
-        url("assets/bg.png") center / cover no-repeat;
-      background-position: 60% 35%; /* <-- tweak this line */
+        url("assets/bg.png");
 
-      display: flex;
-      justify-content: center;
-      align-items: flex-start;
-      padding: 44px 16px;
+      /* IMPORTANT for positioning your background focal point */
+      background-size: cover;
+      background-repeat: no-repeat;
+
+      /* Tweak this to move Rei/Shinji/Asuka behind your card */
+      background-position: center 55%;
+
+      display:flex;
+      justify-content:center;
+      align-items:flex-start;
+      padding:48px 16px;
     }
 
     main{
-      width: 100%;
+      width:100%;
       max-width: 520px;
       background: var(--card-bg);
       backdrop-filter: blur(14px);
       border-radius: 22px;
       border: 1px solid var(--border);
-      padding: 24px;
+      padding: 28px;
       box-shadow: 0 10px 40px rgba(0,0,0,0.35);
     }
 
-    /* ---------- HEADER ---------- */
-
-    .profile{
-      display: flex;
-      gap: 16px;
-      align-items: center;
-      margin-bottom: 16px;
+    /* Header */
+    .header{
+      display:flex;
+      align-items:center;
+      gap:16px;
+      margin-bottom: 14px;
     }
 
     .avatar{
-      width: 88px;
-      height: 88px;
+      width:78px;
+      height:78px;
       border-radius: 18px;
       object-fit: cover;
-      border: 1px solid var(--border);
-      box-shadow: 0 8px 26px rgba(0,0,0,0.35);
-      background: rgba(255,255,255,0.06);
-      flex: 0 0 88px;
+      border: 1px solid rgba(255,255,255,0.18);
+      flex: 0 0 auto;
     }
 
-    .nameRow h1{
-      margin: 0;
+    .nameRow{
+      display:flex;
+      align-items: baseline;
+      gap: 10px;
+      flex-wrap: wrap;
+      line-height: 1.05;
+    }
+
+    .name{
       font-size: 2.35rem;
       font-weight: 600;
-      line-height: 1.05;
-      letter-spacing: 0.3px;
-      white-space: nowrap;
+      letter-spacing: 0.2px;
+      margin:0;
     }
 
-    /* ---------- CHIPS ---------- */
-
-    .chipRow{
-      display: flex;
+    /* Pills */
+    .meta{
+      display:flex;
       flex-wrap: wrap;
-      gap: 10px;
-      margin-bottom: 22px;
+      gap:10px;
+      margin: 14px 0 18px;
     }
 
-    .chip{
-      border: 1px solid var(--border);
-      background: rgba(255,255,255,0.06);
-      padding: 8px 12px;
+    .pill{
+      padding: 10px 14px;
       border-radius: 999px;
-      font-size: 0.9rem;
-      color: var(--text-dim);
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
+      color: rgba(255,255,255,0.88);
+      font-size: 0.95rem;
+      line-height: 1;
     }
 
-    /* ---------- LINKS ---------- */
+    /* Section labels */
+    .sectionTitle{
+      margin-top: 18px;
+      margin-bottom: 10px;
+      font-size: 0.78rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      opacity: 0.7;
+    }
 
+    /* Social links */
     .links{
-      display: flex;
+      display:flex;
       flex-direction: column;
-      gap: 12px;
-      margin-bottom: 22px;
+      gap:12px;
+      margin-bottom: 16px;
     }
 
     a.button{
-      display: flex;
-      align-items: center;
+      display:flex;
+      align-items:center;
       justify-content: space-between;
       gap: 12px;
-      padding: 14px 16px;
+      padding: 14px 14px;
       border-radius: 14px;
-      text-decoration: none;
+      text-decoration:none;
       color: #fff;
       background: var(--button);
       border: 1px solid var(--border);
+      font-weight: 600;
       transition: background 0.2s ease, transform 0.15s ease;
     }
 
@@ -133,202 +143,424 @@
       transform: translateY(-1px);
     }
 
-    .linkLeft{
-      display: flex;
-      align-items: center;
+    a.button:focus{
+      outline: 3px solid rgba(255,255,255,0.4);
+      outline-offset: 2px;
+    }
+
+    .btnLeft{
+      display:flex;
+      align-items:center;
       gap: 12px;
       min-width: 0;
     }
 
-    /* ✅ Logo sizing:
-       These dimensions are the *exact* displayed size for every icon. */
-    .linkIcon{
-      width: 26px;
-      height: 26px;
-      flex: 0 0 26px;
+    /* Make ALL logos identical size & alignment */
+    .logo{
+      width: 22px;
+      height: 22px;
+      flex: 0 0 22px;
       object-fit: contain;
-      display: block;
+      display:block;
+      opacity: 0.95;
     }
 
-    .linkTitle{
-      font-size: 1.05rem;
-      font-weight: 600;
-      line-height: 1.2;
+    .btnText{
+      font-size: 1.03rem;
       white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .arrow{
       opacity: 0.6;
       font-size: 1.1rem;
+      margin-left: 8px;
       flex: 0 0 auto;
     }
 
-    /* ---------- SECTIONS ---------- */
-
-    .sectionTitle{
-      margin: 20px 0 10px;
-      font-size: 0.9rem;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--text-dimmer);
+    /* Bio card */
+    .bioCard{
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 14px;
+      padding: 14px 14px;
+      color: rgba(255,255,255,0.85);
+      line-height: 1.5;
     }
 
-    .bioBox{
-      border: 1px solid var(--border);
-      background: rgba(255,255,255,0.05);
-      border-radius: 16px;
-      padding: 14px;
-      font-size: 0.95rem;
-      line-height: 1.55;
-      color: var(--text-dim);
-      margin-bottom: 16px;
-    }
-
-    /* ---------- I AM / MEDIA ---------- */
-
+    /* "I AM" / media cards */
     .mediaGrid{
-      display: grid;
+      display:flex;
+      flex-direction: column;
       gap: 12px;
     }
 
     .mediaCard{
-      display: grid;
-      grid-template-columns: 112px 1fr; /* portrait cover column */
-      gap: 14px;
+      display:flex;
       align-items: center;
-      border: 1px solid var(--border);
-      background: rgba(255,255,255,0.05);
+      gap: 16px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
       border-radius: 16px;
       padding: 14px;
     }
 
-    /* ✅ Portrait cover container to remove left/right empty space
-       while still showing the full cover (no cropping). */
-    .mediaThumb{
-      width: 112px;
-      aspect-ratio: 2 / 3;  /* portrait */
-      height: auto;
+    /* Show entire image with NO empty left/right space */
+    .mediaThumbWrap{
+      width: 96px;
+      height: 96px;
       border-radius: 14px;
-      border: 1px solid var(--border);
-      background: rgba(255,255,255,0.04);
-      object-fit: contain;   /* full image visible */
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.14);
+      flex: 0 0 96px;
+      background: rgba(0,0,0,0.18);
+    }
+
+    .mediaThumb{
+      width: 100%;
+      height: 100%;
+      object-fit: cover;   /* fills box */
       object-position: center;
-      display: block;
+      display:block;
+    }
+
+    .mediaText{
+      min-width: 0;
     }
 
     .mediaTitle{
-      margin: 0 0 6px 0;
-      font-weight: 600;
+      margin:0;
       font-size: 1.05rem;
+      font-weight: 600;
     }
 
     .mediaSub{
-      margin: 0;
-      font-size: 0.98rem;
+      margin: 6px 0 0;
       color: var(--text-dim);
+      font-size: 1rem;
+    }
+
+    /* Listening To grid */
+    .listenGrid{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+
+    .trackCard{
+      display:grid;
+      grid-template-columns: 96px 1fr;
+      gap: 14px;
+      align-items: center;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 16px;
+      padding: 14px;
+    }
+
+    /* Album covers: identical size & dimensions */
+    .albumCover{
+      width: 96px;
+      height: 96px;
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(0,0,0,0.18);
+      position: relative;
+      cursor: pointer;
+    }
+
+    .albumCover img{
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display:block;
+    }
+
+    .playOverlay{
+      position:absolute;
+      inset:0;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background: rgba(0,0,0,0.25);
+      opacity: 0;
+      transition: opacity .15s ease;
+    }
+
+    .albumCover:hover .playOverlay{
+      opacity: 1;
+    }
+
+    .playBtn{
+      width: 44px;
+      height: 44px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.20);
+      background: rgba(255,255,255,0.14);
+      backdrop-filter: blur(10px);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size: 18px;
+    }
+
+    .trackInfo{
+      min-width:0;
+    }
+
+    .trackTitle{
+      margin:0;
+      font-size: 1.05rem;
+      font-weight: 600;
+    }
+
+    .trackMeta{
+      margin: 6px 0 10px;
+      color: var(--text-dim);
+      font-size: 0.98rem;
       line-height: 1.35;
     }
 
-    footer{
-      margin-top: 22px;
-      font-size: 0.75rem;
-      opacity: 0.6;
-      text-align: center;
+    .playerRow{
+      display:flex;
+      align-items:center;
+      gap: 10px;
     }
 
-    @media (max-width: 520px){
-      body{ padding: 28px 12px; }
-      .avatar{ width: 72px; height: 72px; }
-      .nameRow h1{ font-size: 2.1rem; }
+    .smallPlay{
+      width: 36px;
+      height: 36px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.18);
+      background: rgba(255,255,255,0.12);
+      color: #fff;
+      cursor:pointer;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size: 14px;
+      flex: 0 0 auto;
+    }
 
-      .mediaCard{ grid-template-columns: 104px 1fr; }
-      .mediaThumb{ width: 104px; }
-      .linkIcon{ width: 26px; height: 26px; } /* stays exact on mobile too */
+    .progressWrap{
+      flex: 1 1 auto;
+      min-width: 0;
+      display:flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .progressBar{
+      width:100%;
+      height: 6px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.14);
+      overflow:hidden;
+      cursor:pointer;
+    }
+
+    .progressFill{
+      height: 100%;
+      width: 0%;
+      background: rgba(255,255,255,0.55);
+    }
+
+    .timeRow{
+      display:flex;
+      justify-content: space-between;
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.72);
+    }
+
+    footer{
+      margin-top: 18px;
+      font-size: 0.75rem;
+      opacity: 0.6;
+      text-align:center;
+    }
+
+    @media (max-width: 480px){
+      body{ padding: 28px 12px; }
+      main{ padding: 22px; }
+
+      .avatar{ width:72px; height:72px; border-radius: 16px; }
+      .name{ font-size: 2.15rem; }
+
+      .mediaThumbWrap,
+      .albumCover{
+        width: 92px;
+        height: 92px;
+        border-radius: 14px;
+        flex-basis: 92px;
+      }
+
+      .trackCard{
+        grid-template-columns: 92px 1fr;
+      }
     }
   </style>
 </head>
 
 <body>
   <main>
-
-    <!-- HEADER -->
-    <div class="profile">
+    <!-- Header -->
+    <div class="header">
       <img class="avatar" src="assets/profile.webp" alt="Profile photo">
-      <div class="nameRow">
-        <h1>Roberto💿</h1>
+      <div>
+        <div class="nameRow">
+          <h1 class="name">Roberto💿</h1>
+        </div>
       </div>
     </div>
 
-    <!-- CHIPS -->
-    <div class="chipRow" aria-label="Quick facts">
-      <div class="chip">he/him</div>
-      <div class="chip">20</div>
-      <div class="chip">Baltimore</div>
-      <div class="chip">EN / ES</div>
+    <!-- Meta pills (no labels) -->
+    <div class="meta" aria-label="Quick info">
+      <div class="pill">he/him</div>
+      <div class="pill">20</div>
+      <div class="pill">Baltimore</div>
+      <div class="pill">EN / ES</div>
     </div>
 
-    <!-- LINKS (with logos) -->
-    <section class="links" aria-label="Social links">
-      <a class="button" href="https://x.com/egemago" target="_blank" rel="noopener">
-        <span class="linkLeft">
-          <img class="linkIcon" src="assets/twitter-logo.png" alt="Twitter logo">
-          <span class="linkTitle">Twitter</span>
-        </span>
-        <span class="arrow">↗</span>
+    <!-- Links -->
+    <div class="links" aria-label="Social links">
+      <a class="button" href="https://twitter.com/egemago" target="_blank" rel="noopener">
+        <div class="btnLeft">
+          <img class="logo" src="assets/twitter-logo.png" alt="Twitter logo">
+          <div class="btnText">Twitter</div>
+        </div>
+        <div class="arrow">↗</div>
       </a>
 
       <a class="button" href="https://letterboxd.com/stoneyend/" target="_blank" rel="noopener">
-        <span class="linkLeft">
-          <img class="linkIcon" src="assets/letterboxd-logo.png" alt="Letterboxd logo">
-          <span class="linkTitle">Letterboxd</span>
-        </span>
-        <span class="arrow">↗</span>
+        <div class="btnLeft">
+          <img class="logo" src="assets/letterboxd-logo.png" alt="Letterboxd logo">
+          <div class="btnText">Letterboxd</div>
+        </div>
+        <div class="arrow">↗</div>
       </a>
 
       <a class="button" href="https://rateyourmusic.com/~egemago" target="_blank" rel="noopener">
-        <span class="linkLeft">
-          <img class="linkIcon" src="assets/rym-logo.png" alt="RYM logo">
-          <span class="linkTitle">RYM</span>
-        </span>
-        <span class="arrow">↗</span>
+        <div class="btnLeft">
+          <img class="logo" src="assets/rym-logo.png" alt="RYM logo">
+          <div class="btnText">RYM</div>
+        </div>
+        <div class="arrow">↗</div>
       </a>
 
       <a class="button" href="https://www.last.fm/user/egemago" target="_blank" rel="noopener">
-        <span class="linkLeft">
-          <img class="linkIcon" src="assets/lastfm-logo.png" alt="last.fm logo">
-          <span class="linkTitle">last.fm</span>
-        </span>
-        <span class="arrow">↗</span>
+        <div class="btnLeft">
+          <img class="logo" src="assets/lastfm-logo.png" alt="last.fm logo">
+          <div class="btnText">last.fm</div>
+        </div>
+        <div class="arrow">↗</div>
       </a>
-    </section>
 
-    <!-- EXTENDED BIO -->
+      <a class="button" href="https://music.apple.com/profile/egemago" target="_blank" rel="noopener">
+        <div class="btnLeft">
+          <img class="logo" src="assets/applemusic-logo.png" alt="Apple Music logo">
+          <div class="btnText">Apple Music</div>
+        </div>
+        <div class="arrow">↗</div>
+      </a>
+    </div>
+
+    <!-- Extended Bio -->
     <div class="sectionTitle">Extended Bio</div>
-    <div class="bioBox">
-      My name's Roberto. I mainly discuss music, but I love books, film, anime, manga, the gym, and Tottenham Hotspur. I was born in El Salvador, but have lived in Baltimore for most of my life. I am currently an Accounting and Finance major and a studying socialist.
+    <div class="bioCard">
+      My name's Roberto. I mainly discuss music, but I love books, film, anime, manga, the gym, and Tottenham Hotspur.
+      I was born in El Salvador, but have lived in Baltimore for most of my life. I am currently an Accounting and Finance
+      major and a studying socialist.
     </div>
 
     <!-- I AM -->
-    <div class="sectionTitle">I Am</div>
+    <div class="sectionTitle">I AM</div>
     <div class="mediaGrid" aria-label="Currently reading and watching">
       <div class="mediaCard">
-        <img class="mediaThumb" src="assets/wuthering-heights.jpeg" alt="Wuthering Heights by Emily Brontë">
-        <div>
+        <div class="mediaThumbWrap">
+          <img class="mediaThumb" src="assets/wuthering-heights.jpeg" alt="Cover of Wuthering Heights by Emily Brontë">
+        </div>
+        <div class="mediaText">
           <p class="mediaTitle">Currently Reading</p>
           <p class="mediaSub">Wuthering Heights by Emily Brontë</p>
         </div>
       </div>
 
       <div class="mediaCard">
-        <img class="mediaThumb" src="assets/twin-peaks.jpeg" alt="Twin Peaks">
-        <div>
+        <div class="mediaThumbWrap">
+          <img class="mediaThumb" src="assets/twin-peaks.jpeg" alt="Twin Peaks">
+        </div>
+        <div class="mediaText">
           <p class="mediaTitle">Currently Rewatching</p>
           <p class="mediaSub">Twin Peaks</p>
         </div>
       </div>
     </div>
 
-    <footer>✦ built with Cloudflare Pages ✦</footer>
-  </main>
-</body>
-</html>
+    <!-- Listening To -->
+    <div class="sectionTitle">Listening To</div>
+
+    <div class="listenGrid" aria-label="Tracks">
+      <!-- Track 1 -->
+      <div class="trackCard" data-audio="track1">
+        <div class="albumCover" data-action="toggle" aria-label="Play Jason and the Argonauts">
+          <img src="assets/englishsettlement-logo.jpg" alt="English Settlement cover">
+          <div class="playOverlay"><div class="playBtn">▶</div></div>
+        </div>
+
+        <div class="trackInfo">
+          <p class="trackTitle">Jason and the Argonauts</p>
+          <p class="trackMeta">XTC • <em>English Settlement</em></p>
+
+          <div class="playerRow">
+            <button class="smallPlay" data-action="toggle" aria-label="Play/Pause">▶</button>
+
+            <div class="progressWrap">
+              <div class="progressBar" data-action="seek" aria-label="Seek">
+                <div class="progressFill"></div>
+              </div>
+              <div class="timeRow">
+                <span class="cur">0:00</span>
+                <span class="dur">0:00</span>
+              </div>
+            </div>
+          </div>
+
+          <audio id="track1" preload="metadata" src="assets/audio/jason-and-the-argonauts.mp3"></audio>
+        </div>
+      </div>
+
+      <!-- Track 2 -->
+      <div class="trackCard" data-audio="track2">
+        <div class="albumCover" data-action="toggle" aria-label="Play Otha Fish">
+          <img src="assets/bizarreride-logo.jpg" alt="Bizarre Ride II the Pharcyde cover">
+          <div class="playOverlay"><div class="playBtn">▶</div></div>
+        </div>
+
+        <div class="trackInfo">
+          <p class="trackTitle">Otha Fish</p>
+          <p class="trackMeta">The Pharcyde • <em>Bizarre Ride II the Pharcyde</em></p>
+
+          <div class="playerRow">
+            <button class="smallPlay" data-action="toggle" aria-label="Play/Pause">▶</button>
+
+            <div class="progressWrap">
+              <div class="progressBar" data-action="seek" aria-label="Seek">
+                <div class="progressFill"></div>
+              </div>
+              <div class="timeRow">
+                <span class="cur">0:00</span>
+                <span class="dur">0:00</span>
+              </div>
+            </div>
+          </div>
+
+          <audio id="track2" preload="metadata" src="assets/audio/otha-fish.mp3"></audio>
+        </div>
+      </div>
+
+      <!-- Track 3 -->
+      <div class="trackCard" data-audio="track3">
+        <div class="albumCover" data-action="toggle" aria-label="Play Locals (Girls like us)">
+          <img src="assets/walls
