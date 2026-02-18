@@ -260,6 +260,75 @@
       font-size: 0.98rem;
     }
 
+    /* Favorites grid (Albums + Animanga) */
+    .favGrid{
+      display:grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap:12px;
+    }
+
+    @media (min-width: 560px){
+      .favGrid{
+        grid-template-columns: repeat(5, 1fr);
+      }
+    }
+
+    .favCard{
+      display:block;
+      text-decoration:none;
+      color: inherit;
+      border-radius:16px;
+      background: rgba(255,255,255,0.10);
+      border:1px solid rgba(255,255,255,0.12);
+      overflow:hidden;
+      transition: transform 0.15s ease, background 0.2s ease;
+    }
+
+    .favCard:hover{
+      transform: translateY(-1px);
+      background: rgba(255,255,255,0.14);
+    }
+
+    .favCover{
+      width:100%;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+      display:block;
+      background: rgba(0,0,0,0.15);
+    }
+
+    /* Animanga uses poster ratio */
+    .posterCover{
+      width:100%;
+      aspect-ratio: 2 / 3;
+      object-fit: cover;
+      display:block;
+      background: rgba(0,0,0,0.15);
+    }
+
+    .favMeta{
+      padding:10px 10px 12px;
+      min-width:0;
+    }
+
+    .favTitle{
+      margin:0;
+      font-size:0.92rem;
+      font-weight:600;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+
+    .favSub{
+      margin:4px 0 0;
+      font-size:0.82rem;
+      color: var(--text-dim);
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+
     /* Listening To */
     .listenGrid{
       display:flex;
@@ -492,6 +561,94 @@
           <p class="mediaSub">Twin Peaks</p>
         </div>
       </div>
+    </div>
+
+    <!-- FAVORITE ALBUMS -->
+    <div class="sectionTitle">Favorite Albums</div>
+    <div class="favGrid" aria-label="Favorite albums">
+      <a class="favCard" href="https://rateyourmusic.com/release/album/geordie-greep/the-new-sound/" target="_blank" rel="noopener">
+        <img class="favCover" src="assets/new-sound.png" alt="The New Sound album cover" loading="lazy">
+        <div class="favMeta">
+          <p class="favTitle">The New Sound</p>
+          <p class="favSub">Geordie Greep (2024)</p>
+        </div>
+      </a>
+
+      <a class="favCard" href="https://rateyourmusic.com/release/album/xtc/skylarking/" target="_blank" rel="noopener">
+        <img class="favCover" src="assets/skylarking.png" alt="Skylarking album cover" loading="lazy">
+        <div class="favMeta">
+          <p class="favTitle">Skylarking</p>
+          <p class="favSub">XTC (1986)</p>
+        </div>
+      </a>
+
+      <a class="favCard" href="https://rateyourmusic.com/release/album/underscores/wallsocket/" target="_blank" rel="noopener">
+        <img class="favCover" src="assets/wallsocket-logo.webp" alt="Wallsocket album cover" loading="lazy">
+        <div class="favMeta">
+          <p class="favTitle">Wallsocket</p>
+          <p class="favSub">underscores (2023)</p>
+        </div>
+      </a>
+
+      <a class="favCard" href="https://rateyourmusic.com/release/album/can/ege-bamyasi/" target="_blank" rel="noopener">
+        <img class="favCover" src="assets/ege-bamyasi.jpg" alt="Ege Bamyasi album cover" loading="lazy">
+        <div class="favMeta">
+          <p class="favTitle">Ege Bamyasi</p>
+          <p class="favSub">Can (1972)</p>
+        </div>
+      </a>
+
+      <a class="favCard" href="https://rateyourmusic.com/release/album/invisible/el-jardin-de-los-presentes/" target="_blank" rel="noopener">
+        <img class="favCover" src="assets/jardin-presentes.png" alt="El jardín de los presentes album cover" loading="lazy">
+        <div class="favMeta">
+          <p class="favTitle">El jardín de los presentes</p>
+          <p class="favSub">Invisible (1976)</p>
+        </div>
+      </a>
+    </div>
+
+    <!-- FAVORITE ANIMANGA -->
+    <div class="sectionTitle">Favorite Animanga</div>
+    <div class="favGrid" aria-label="Favorite anime and manga">
+      <a class="favCard" href="https://myanimelist.net/anime/30/Neon_Genesis_Evangelion" target="_blank" rel="noopener">
+        <img class="posterCover" src="assets/eva.jpg" alt="Neon Genesis Evangelion poster" loading="lazy">
+        <div class="favMeta">
+          <p class="favTitle">Neon Genesis Evangelion</p>
+          <p class="favSub">Anime</p>
+        </div>
+      </a>
+
+      <a class="favCard" href="https://myanimelist.net/anime/227/FLCL" target="_blank" rel="noopener">
+        <img class="posterCover" src="assets/flcl.jpg" alt="FLCL poster" loading="lazy">
+        <div class="favMeta">
+          <p class="favTitle">FLCL</p>
+          <p class="favSub">Anime</p>
+        </div>
+      </a>
+
+      <a class="favCard" href="https://myanimelist.net/manga/1/Monster" target="_blank" rel="noopener">
+        <img class="posterCover" src="assets/monster.jpg" alt="Monster manga cover" loading="lazy">
+        <div class="favMeta">
+          <p class="favTitle">Monster</p>
+          <p class="favSub">Manga</p>
+        </div>
+      </a>
+
+      <a class="favCard" href="https://myanimelist.net/manga/21/Chainsaw_Man" target="_blank" rel="noopener">
+        <img class="posterCover" src="assets/chainsaw-man.jpg" alt="Chainsaw Man manga cover" loading="lazy">
+        <div class="favMeta">
+          <p class="favTitle">Chainsaw Man</p>
+          <p class="favSub">Manga</p>
+        </div>
+      </a>
+
+      <a class="favCard" href="https://myanimelist.net/manga/1517/JoJo_no_Kimyou_na_Bouken" target="_blank" rel="noopener">
+        <img class="posterCover" src="assets/jojos.jpg" alt="JoJo's Bizarre Adventure manga cover" loading="lazy">
+        <div class="favMeta">
+          <p class="favTitle">JoJo's Bizarre Adventure</p>
+          <p class="favSub">Manga</p>
+        </div>
+      </a>
     </div>
 
     <!-- LISTENING TO -->
