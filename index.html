@@ -44,7 +44,6 @@
       min-height:100vh;
       font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
       color:#f2f2f2;
-
       background: transparent;
 
       display:flex;
@@ -77,6 +76,8 @@
       border: 1px solid var(--border);
       padding: 24px;
       box-shadow: 0 10px 40px rgba(0,0,0,0.35);
+      position: relative;
+      overflow: hidden;
     }
 
     /* Header */
@@ -216,7 +217,7 @@
       font-size: 0.98rem;
     }
 
-    /* Media cards (I AM) */
+    /* Media cards (Currently) */
     .mediaGrid{
       display:flex;
       flex-direction:column;
@@ -257,53 +258,6 @@
       margin:4px 0 0;
       color: var(--text-dim);
       font-size: 0.98rem;
-    }
-
-    /* Favorites grid (Albums + Animanga) */
-    .favGrid{
-      display:grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap:12px;
-    }
-
-    @media (min-width: 560px){
-      .favGrid{
-        grid-template-columns: repeat(5, 1fr);
-      }
-    }
-
-    .favCard{
-      display:block;
-      text-decoration:none;
-      color: inherit;
-      border-radius:16px;
-      background: rgba(255,255,255,0.10);
-      border:1px solid rgba(255,255,255,0.12);
-      overflow:hidden;
-      transition: transform 0.15s ease, background 0.2s ease;
-    }
-
-    .favCard:hover{
-      transform: translateY(-1px);
-      background: rgba(255,255,255,0.14);
-    }
-
-    /* Album covers = square */
-    .favCover{
-      width:100%;
-      aspect-ratio: 1 / 1;
-      object-fit: cover;
-      display:block;
-      background: rgba(0,0,0,0.15);
-    }
-
-    /* Animanga covers = poster ratio */
-    .posterCover{
-      width:100%;
-      aspect-ratio: 2 / 3;
-      object-fit: cover;
-      display:block;
-      background: rgba(0,0,0,0.15);
     }
 
     /* Listening To */
@@ -430,6 +384,117 @@
       letter-spacing: 0.02em;
     }
 
+    /* ===== Image-only strips (Albums / Animanga) ===== */
+    .strip{
+      display:flex;
+      gap:14px;
+      overflow-x:auto;
+      padding: 6px 2px 10px;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+    }
+    .strip::-webkit-scrollbar{ height: 10px; }
+    .strip::-webkit-scrollbar-thumb{ background: rgba(255,255,255,0.12); border-radius: 999px; }
+
+    .tile{
+      scroll-snap-align: start;
+      flex: 0 0 122px;
+      height: 122px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.08);
+      overflow:hidden;
+      position: relative;
+      transition: transform .15s ease, background .2s ease;
+    }
+    .tile:hover{ transform: translateY(-1px); background: rgba(255,255,255,0.12); }
+
+    .tile img{
+      width:100%;
+      height:100%;
+      object-fit: cover;
+      display:block;
+    }
+
+    /* ===== Gallery (hero + masonry + stickers) ===== */
+    .galleryWrap{
+      position: relative;
+      border-radius: 18px;
+    }
+
+    .heroImage{
+      width:100%;
+      display:block;
+      border-radius: 18px;
+      border:1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.06);
+      margin-bottom: 14px;
+    }
+
+    .masonry{
+      column-count: 2;
+      column-gap: 14px;
+    }
+    @media (min-width: 560px){
+      .masonry{ column-count: 3; }
+    }
+
+    .masonry a{
+      display: inline-block;
+      width:100%;
+      margin: 0 0 14px;
+      break-inside: avoid;
+      -webkit-column-break-inside: avoid;
+      text-decoration: none;
+    }
+
+    .masonry img{
+      width:100%;
+      height:auto;
+      display:block;
+      border-radius: 16px;
+      border:1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.06);
+    }
+
+    /* Sticker layer: subtle, behind content */
+    .sticker{
+      position:absolute;
+      pointer-events:none;
+      opacity:0.14;
+      filter: blur(0.2px);
+      transform: translateZ(0);
+      z-index: 0;
+    }
+    .sticker.tottenham{
+      top: 8px;
+      right: -52px;
+      width: 200px;
+      transform: rotate(-10deg);
+    }
+    .sticker.rose{
+      bottom: 110px;
+      left: -44px;
+      width: 165px;
+      transform: rotate(8deg);
+    }
+    .sticker.flag{
+      top: 320px;
+      right: -70px;
+      width: 160px;
+      transform: rotate(10deg);
+      opacity: 0.10;
+    }
+    .sticker.symbol{
+      bottom: -90px;
+      right: -90px;
+      width: 260px;
+      opacity: 0.08;
+    }
+
+    /* Keep gallery content above stickers */
+    .galleryContent{ position: relative; z-index: 1; }
+
     footer{
       margin-top:18px;
       font-size:0.75rem;
@@ -447,6 +512,8 @@
       .mediaThumb{ width:86px; height:124px; }
       .trackCard{ grid-template-columns: 72px 1fr; }
       .albumCover{ width:72px; height:72px; }
+
+      .tile{ flex-basis: 112px; height: 112px; }
     }
   </style>
 </head>
@@ -467,8 +534,8 @@
     <div class="chips" aria-label="Quick info">
       <div class="chip">he/him</div>
       <div class="chip">20</div>
-      <div class="chip">baltimore</div>
-      <div class="chip">en / es</div>
+      <div class="chip">Baltimore</div>
+      <div class="chip">EN / ES</div>
     </div>
 
     <!-- LINKS -->
@@ -517,16 +584,17 @@
     <!-- EXTENDED BIO -->
     <div class="sectionTitle">Extended Bio</div>
     <div class="bioBox">
-      mainly discuss music, but i love books, film, and animanga.  majoring in accounting and finance. studying socialism.
+      My name's Roberto. I mainly discuss music, but I love books, film, anime, manga, the gym, and Tottenham Hotspur.
+      I was born in El Salvador, but have lived in Baltimore for most of my life. I am currently an Accounting and Finance major and a studying socialist.
     </div>
 
-    <!-- I AM -->
+    <!-- CURRENTLY (header to keep bio from "running into" the section) -->
     <div class="sectionTitle">Currently</div>
     <div class="mediaGrid" aria-label="Currently reading and watching">
       <div class="mediaCard">
         <img class="mediaThumb" src="assets/wuthering-heights.jpeg" alt="Cover of Wuthering Heights by Emily Brontë">
         <div class="mediaText">
-          <p class="mediaTitle">Reading</p>
+          <p class="mediaTitle">Currently Reading</p>
           <p class="mediaSub">Wuthering Heights by Emily Brontë</p>
         </div>
       </div>
@@ -534,58 +602,10 @@
       <div class="mediaCard">
         <img class="mediaThumb" src="assets/twin-peaks.jpeg" alt="Twin Peaks">
         <div class="mediaText">
-          <p class="mediaTitle">Rewatching</p>
+          <p class="mediaTitle">Currently Rewatching</p>
           <p class="mediaSub">Twin Peaks</p>
         </div>
       </div>
-    </div>
-
-    <!-- FAVORITE ALBUMS (NO TEXT) -->
-    <div class="sectionTitle">Favorite Albums</div>
-    <div class="favGrid" aria-label="Favorite albums">
-      <a class="favCard" href="https://rateyourmusic.com/release/album/geordie-greep/the-new-sound/" target="_blank" rel="noopener" aria-label="The New Sound on Rate Your Music">
-        <img class="favCover" src="assets/new-sound.png" alt="The New Sound album cover" loading="lazy">
-      </a>
-
-      <a class="favCard" href="https://rateyourmusic.com/release/album/xtc/skylarking/" target="_blank" rel="noopener" aria-label="Skylarking on Rate Your Music">
-        <img class="favCover" src="assets/skylarking.png" alt="Skylarking album cover" loading="lazy">
-      </a>
-
-      <a class="favCard" href="https://rateyourmusic.com/release/album/underscores/wallsocket/" target="_blank" rel="noopener" aria-label="Wallsocket on Rate Your Music">
-        <img class="favCover" src="assets/wallsocket-logo.webp" alt="Wallsocket album cover" loading="lazy">
-      </a>
-
-      <a class="favCard" href="https://rateyourmusic.com/release/album/can/ege-bamyasi/" target="_blank" rel="noopener" aria-label="Ege Bamyasi on Rate Your Music">
-        <img class="favCover" src="assets/ege-bamyasi.jpg" alt="Ege Bamyasi album cover" loading="lazy">
-      </a>
-
-      <a class="favCard" href="https://rateyourmusic.com/release/album/invisible/el-jardin-de-los-presentes/" target="_blank" rel="noopener" aria-label="El jardín de los presentes on Rate Your Music">
-        <img class="favCover" src="assets/jardin-presentes.png" alt="El jardín de los presentes album cover" loading="lazy">
-      </a>
-    </div>
-
-    <!-- FAVORITE ANIMANGA (NO TEXT, ANILIST LINKS) -->
-    <div class="sectionTitle">Favorite Animanga</div>
-    <div class="favGrid" aria-label="Favorite anime and manga">
-      <a class="favCard" href="https://anilist.co/anime/30/Shin-Seiki-Evangelion" target="_blank" rel="noopener" aria-label="Neon Genesis Evangelion on AniList">
-        <img class="posterCover" src="assets/eva.jpg" alt="Neon Genesis Evangelion poster" loading="lazy">
-      </a>
-
-      <a class="favCard" href="https://anilist.co/anime/227/FLCL" target="_blank" rel="noopener" aria-label="FLCL on AniList">
-        <img class="posterCover" src="assets/flcl.jpg" alt="FLCL poster" loading="lazy">
-      </a>
-
-      <a class="favCard" href="https://anilist.co/manga/30001/MONSTER" target="_blank" rel="noopener" aria-label="Monster on AniList">
-        <img class="posterCover" src="assets/monster.jpg" alt="Monster manga cover" loading="lazy">
-      </a>
-
-      <a class="favCard" href="https://anilist.co/manga/105778/Chainsaw-Man" target="_blank" rel="noopener" aria-label="Chainsaw Man on AniList">
-        <img class="posterCover" src="assets/chainsaw-man.jpg" alt="Chainsaw Man manga cover" loading="lazy">
-      </a>
-
-      <a class="favCard" href="https://anilist.co/manga/55515/JoJo-no-Kimyou-na-Bouken-JoJolion/" target="_blank" rel="noopener" aria-label="JoJo's Bizarre Adventure: JoJolion on AniList">
-        <img class="posterCover" src="assets/jojos.jpg" alt="JoJo's Bizarre Adventure manga cover" loading="lazy">
-      </a>
     </div>
 
     <!-- LISTENING TO -->
@@ -657,6 +677,93 @@
           </div>
 
           <audio preload="metadata" src="assets/audio/locals-girls-like-us.mp3"></audio>
+        </div>
+      </div>
+    </div>
+
+    <!-- FAVORITE ALBUMS (image-only, links preserved) -->
+    <div class="sectionTitle">Favorite Albums</div>
+    <div class="strip" aria-label="Favorite albums (links to Rate Your Music)">
+      <!-- NOTE: If any of these RYM URLs don't open correctly, tell me and I’ll adjust the exact slugs. -->
+      <a class="tile" href="https://rateyourmusic.com/release/album/geordie-greep/the-new-sound/" target="_blank" rel="noopener" aria-label="The New Sound (Geordie Greep)">
+        <img src="assets/new-sound.png" alt="">
+      </a>
+      <a class="tile" href="https://rateyourmusic.com/release/album/xtc/skylarking/" target="_blank" rel="noopener" aria-label="Skylarking (XTC)">
+        <img src="assets/skylarking.png" alt="">
+      </a>
+      <a class="tile" href="https://rateyourmusic.com/release/album/underscores/wallsocket/" target="_blank" rel="noopener" aria-label="Wallsocket (underscores)">
+        <img src="assets/wallsocket-logo.webp" alt="">
+      </a>
+      <a class="tile" href="https://rateyourmusic.com/release/album/can/ege-bamyasi/" target="_blank" rel="noopener" aria-label="Ege Bamyasi (Can)">
+        <img src="assets/ege-bamyasi.jpg" alt="">
+      </a>
+      <a class="tile" href="https://rateyourmusic.com/release/album/invisible/el-jardin-de-los-presentes/" target="_blank" rel="noopener" aria-label="El jardín de los presentes (Invisible)">
+        <img src="assets/jardin-presentes.png" alt="">
+      </a>
+    </div>
+
+    <!-- FAVORITE ANIMANGA (image-only, AniList links) -->
+    <div class="sectionTitle">Favorite Animanga</div>
+    <div class="strip" aria-label="Favorite animanga (links to AniList)">
+      <a class="tile" href="https://anilist.co/anime/30/Shin-Seiki-Evangelion" target="_blank" rel="noopener" aria-label="Neon Genesis Evangelion (AniList)">
+        <img src="assets/eva.jpg" alt="">
+      </a>
+      <a class="tile" href="https://anilist.co/anime/227/FLCL" target="_blank" rel="noopener" aria-label="FLCL (AniList)">
+        <img src="assets/flcl.jpg" alt="">
+      </a>
+      <a class="tile" href="https://anilist.co/manga/30001/MONSTER" target="_blank" rel="noopener" aria-label="Monster (AniList)">
+        <img src="assets/monster.jpg" alt="">
+      </a>
+      <a class="tile" href="https://anilist.co/manga/105778/Chainsaw-Man" target="_blank" rel="noopener" aria-label="Chainsaw Man (AniList)">
+        <img src="assets/chainsaw-man.jpg" alt="">
+      </a>
+      <a class="tile" href="https://anilist.co/manga/55515/JoJo-no-Kimyou-na-Bouken-JoJolion/" target="_blank" rel="noopener" aria-label="JoJo's Bizarre Adventure: JoJolion (AniList)">
+        <img src="assets/jojos.jpg" alt="">
+      </a>
+    </div>
+
+    <!-- GALLERY (your uploaded files in assets/gallery/) -->
+    <div class="sectionTitle">Gallery</div>
+    <div class="galleryWrap" aria-label="Image collage">
+      <!-- sticker layer -->
+      <img class="sticker tottenham" src="assets/gallery/tottenham.png" alt="" aria-hidden="true">
+      <img class="sticker rose" src="assets/gallery/rose.png" alt="" aria-hidden="true">
+      <img class="sticker flag" src="assets/gallery/elsalvador.webp" alt="" aria-hidden="true">
+      <img class="sticker symbol" src="assets/gallery/symbol-black.png" alt="" aria-hidden="true">
+
+      <div class="galleryContent">
+        <!-- hero -->
+        <img class="heroImage" src="assets/gallery/manga-hero.png" alt="" loading="lazy">
+
+        <!-- masonry -->
+        <div class="masonry" aria-label="Gallery images">
+          <a href="assets/gallery/manga-sword.webp" target="_blank" rel="noopener" aria-label="Open image">
+            <img src="assets/gallery/manga-sword.webp" alt="" loading="lazy">
+          </a>
+
+          <a href="assets/gallery/jojo-art.png" target="_blank" rel="noopener" aria-label="Open image">
+            <img src="assets/gallery/jojo-art.png" alt="" loading="lazy">
+          </a>
+
+          <a href="assets/gallery/pokemon.png" target="_blank" rel="noopener" aria-label="Open image">
+            <img src="assets/gallery/pokemon.png" alt="" loading="lazy">
+          </a>
+
+          <a href="assets/gallery/band-bw.webp" target="_blank" rel="noopener" aria-label="Open image">
+            <img src="assets/gallery/band-bw.webp" alt="" loading="lazy">
+          </a>
+
+          <a href="assets/gallery/james-baldwin.webp" target="_blank" rel="noopener" aria-label="Open image">
+            <img src="assets/gallery/james-baldwin.webp" alt="" loading="lazy">
+          </a>
+
+          <a href="assets/gallery/fka-twigs.avif" target="_blank" rel="noopener" aria-label="Open image">
+            <img src="assets/gallery/fka-twigs.avif" alt="" loading="lazy">
+          </a>
+
+          <a href="assets/gallery/band-framed.png" target="_blank" rel="noopener" aria-label="Open image">
+            <img src="assets/gallery/band-framed.png" alt="" loading="lazy">
+          </a>
         </div>
       </div>
     </div>
