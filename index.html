@@ -45,7 +45,6 @@
       font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
       color:#f2f2f2;
 
-      /* keep body transparent; paint background via ::before so it covers full page */
       background: transparent;
 
       display:flex;
@@ -289,6 +288,7 @@
       background: rgba(255,255,255,0.14);
     }
 
+    /* Album covers = square */
     .favCover{
       width:100%;
       aspect-ratio: 1 / 1;
@@ -297,36 +297,13 @@
       background: rgba(0,0,0,0.15);
     }
 
-    /* Animanga uses poster ratio */
+    /* Animanga covers = poster ratio */
     .posterCover{
       width:100%;
       aspect-ratio: 2 / 3;
       object-fit: cover;
       display:block;
       background: rgba(0,0,0,0.15);
-    }
-
-    .favMeta{
-      padding:10px 10px 12px;
-      min-width:0;
-    }
-
-    .favTitle{
-      margin:0;
-      font-size:0.92rem;
-      font-weight:600;
-      white-space:nowrap;
-      overflow:hidden;
-      text-overflow:ellipsis;
-    }
-
-    .favSub{
-      margin:4px 0 0;
-      font-size:0.82rem;
-      color: var(--text-dim);
-      white-space:nowrap;
-      overflow:hidden;
-      text-overflow:ellipsis;
     }
 
     /* Listening To */
@@ -563,91 +540,51 @@
       </div>
     </div>
 
-    <!-- FAVORITE ALBUMS -->
+    <!-- FAVORITE ALBUMS (NO TEXT) -->
     <div class="sectionTitle">Favorite Albums</div>
     <div class="favGrid" aria-label="Favorite albums">
-      <a class="favCard" href="https://rateyourmusic.com/release/album/geordie-greep/the-new-sound/" target="_blank" rel="noopener">
+      <a class="favCard" href="https://rateyourmusic.com/release/album/geordie-greep/the-new-sound/" target="_blank" rel="noopener" aria-label="The New Sound on Rate Your Music">
         <img class="favCover" src="assets/new-sound.png" alt="The New Sound album cover" loading="lazy">
-        <div class="favMeta">
-          <p class="favTitle">The New Sound</p>
-          <p class="favSub">Geordie Greep (2024)</p>
-        </div>
       </a>
 
-      <a class="favCard" href="https://rateyourmusic.com/release/album/xtc/skylarking/" target="_blank" rel="noopener">
+      <a class="favCard" href="https://rateyourmusic.com/release/album/xtc/skylarking/" target="_blank" rel="noopener" aria-label="Skylarking on Rate Your Music">
         <img class="favCover" src="assets/skylarking.png" alt="Skylarking album cover" loading="lazy">
-        <div class="favMeta">
-          <p class="favTitle">Skylarking</p>
-          <p class="favSub">XTC (1986)</p>
-        </div>
       </a>
 
-      <a class="favCard" href="https://rateyourmusic.com/release/album/underscores/wallsocket/" target="_blank" rel="noopener">
+      <a class="favCard" href="https://rateyourmusic.com/release/album/underscores/wallsocket/" target="_blank" rel="noopener" aria-label="Wallsocket on Rate Your Music">
         <img class="favCover" src="assets/wallsocket-logo.webp" alt="Wallsocket album cover" loading="lazy">
-        <div class="favMeta">
-          <p class="favTitle">Wallsocket</p>
-          <p class="favSub">underscores (2023)</p>
-        </div>
       </a>
 
-      <a class="favCard" href="https://rateyourmusic.com/release/album/can/ege-bamyasi/" target="_blank" rel="noopener">
+      <a class="favCard" href="https://rateyourmusic.com/release/album/can/ege-bamyasi/" target="_blank" rel="noopener" aria-label="Ege Bamyasi on Rate Your Music">
         <img class="favCover" src="assets/ege-bamyasi.jpg" alt="Ege Bamyasi album cover" loading="lazy">
-        <div class="favMeta">
-          <p class="favTitle">Ege Bamyasi</p>
-          <p class="favSub">Can (1972)</p>
-        </div>
       </a>
 
-      <a class="favCard" href="https://rateyourmusic.com/release/album/invisible/el-jardin-de-los-presentes/" target="_blank" rel="noopener">
+      <a class="favCard" href="https://rateyourmusic.com/release/album/invisible/el-jardin-de-los-presentes/" target="_blank" rel="noopener" aria-label="El jardín de los presentes on Rate Your Music">
         <img class="favCover" src="assets/jardin-presentes.png" alt="El jardín de los presentes album cover" loading="lazy">
-        <div class="favMeta">
-          <p class="favTitle">El jardín de los presentes</p>
-          <p class="favSub">Invisible (1976)</p>
-        </div>
       </a>
     </div>
 
-    <!-- FAVORITE ANIMANGA -->
+    <!-- FAVORITE ANIMANGA (NO TEXT, ANILIST LINKS) -->
     <div class="sectionTitle">Favorite Animanga</div>
     <div class="favGrid" aria-label="Favorite anime and manga">
-      <a class="favCard" href="https://myanimelist.net/anime/30/Neon_Genesis_Evangelion" target="_blank" rel="noopener">
+      <a class="favCard" href="https://anilist.co/anime/30/Shin-Seiki-Evangelion" target="_blank" rel="noopener" aria-label="Neon Genesis Evangelion on AniList">
         <img class="posterCover" src="assets/eva.jpg" alt="Neon Genesis Evangelion poster" loading="lazy">
-        <div class="favMeta">
-          <p class="favTitle">Neon Genesis Evangelion</p>
-          <p class="favSub">Anime</p>
-        </div>
       </a>
 
-      <a class="favCard" href="https://myanimelist.net/anime/227/FLCL" target="_blank" rel="noopener">
+      <a class="favCard" href="https://anilist.co/anime/227/FLCL" target="_blank" rel="noopener" aria-label="FLCL on AniList">
         <img class="posterCover" src="assets/flcl.jpg" alt="FLCL poster" loading="lazy">
-        <div class="favMeta">
-          <p class="favTitle">FLCL</p>
-          <p class="favSub">Anime</p>
-        </div>
       </a>
 
-      <a class="favCard" href="https://myanimelist.net/manga/1/Monster" target="_blank" rel="noopener">
+      <a class="favCard" href="https://anilist.co/manga/30001/MONSTER" target="_blank" rel="noopener" aria-label="Monster on AniList">
         <img class="posterCover" src="assets/monster.jpg" alt="Monster manga cover" loading="lazy">
-        <div class="favMeta">
-          <p class="favTitle">Monster</p>
-          <p class="favSub">Manga</p>
-        </div>
       </a>
 
-      <a class="favCard" href="https://myanimelist.net/manga/21/Chainsaw_Man" target="_blank" rel="noopener">
+      <a class="favCard" href="https://anilist.co/manga/105778/Chainsaw-Man" target="_blank" rel="noopener" aria-label="Chainsaw Man on AniList">
         <img class="posterCover" src="assets/chainsaw-man.jpg" alt="Chainsaw Man manga cover" loading="lazy">
-        <div class="favMeta">
-          <p class="favTitle">Chainsaw Man</p>
-          <p class="favSub">Manga</p>
-        </div>
       </a>
 
-      <a class="favCard" href="https://myanimelist.net/manga/1517/JoJo_no_Kimyou_na_Bouken" target="_blank" rel="noopener">
+      <a class="favCard" href="https://anilist.co/manga/55515/JoJo-no-Kimyou-na-Bouken-JoJolion/" target="_blank" rel="noopener" aria-label="JoJo's Bizarre Adventure: JoJolion on AniList">
         <img class="posterCover" src="assets/jojos.jpg" alt="JoJo's Bizarre Adventure manga cover" loading="lazy">
-        <div class="favMeta">
-          <p class="favTitle">JoJo's Bizarre Adventure</p>
-          <p class="favSub">Manga</p>
-        </div>
       </a>
     </div>
 
