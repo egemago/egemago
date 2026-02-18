@@ -63,63 +63,11 @@
       transform: translateZ(0);
     }
 
-    /* ===== FLOATING COLLAGE (SCATTERED ACROSS PAGE) ===== */
-    .stickers{
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: 50; /* IMPORTANT: above the main card so you can actually see them */
-      overflow: hidden;
-    }
-
-    .sticker{
-      position: absolute;
-      pointer-events: none;
-      user-select: none;
-      -webkit-user-drag: none;
-      opacity: 0.95;
-      transform-origin: center;
-      filter: drop-shadow(0 10px 22px rgba(0,0,0,0.35));
-    }
-
     /* blend helpers */
     .faint { opacity: 0.22; filter: drop-shadow(0 8px 18px rgba(0,0,0,0.25)); }
     .screen { mix-blend-mode: screen; }     /* makes BLACK disappear */
     .multiply { mix-blend-mode: multiply; } /* makes WHITE disappear */
     .soft { opacity: 0.55; }
-
-    /*
-      SCATTER POSITIONS (edit these to move stuff)
-      Tip: rotate() + slight size differences = more natural “clump”.
-    */
-    .s-manga-hero   { left: 52vw; top: -6vh; width: 220px; transform: rotate(6deg); }
-    .s-manga-sword  { left: 5vw;  top: 26vh; width: 220px; transform: rotate(-7deg); }
-    .s-jojo         { left: 10vw; top: 63vh; width: 240px; transform: rotate(8deg); }
-    .s-pokemon      { left: 37vw; top: 18vh; width: 185px; transform: rotate(11deg); }
-    .s-baldwin      { left: 65vw; top: 28vh; width: 170px; transform: rotate(-5deg); }
-    .s-bandbw       { left: 42vw; top: 48vh; width: 240px; transform: rotate(-2deg); }
-    .s-fka          { left: 72vw; top: 57vh; width: 190px; transform: rotate(4deg); }
-    .s-bandframed   { left: 55vw; top: 78vh; width: 260px; transform: rotate(-6deg); }
-
-    /* background-ish stickers */
-    .s-tottenham    { right: -60px; top: 10vh; width: 230px; transform: rotate(-10deg); }
-    .s-elsalvador   { left: -40px;  top: 10vh; width: 190px; transform: rotate(12deg); }
-    .s-symbol       { right: -120px; bottom: -140px; width: 380px; transform: rotate(8deg); }
-
-    /* Rose: use SCREEN to “fake” transparency on dark bg */
-    .s-rose         { left: -70px; bottom: 16vh; width: 260px; transform: rotate(10deg); }
-
-    /* Mobile adjustments */
-    @media (max-width: 560px){
-      .s-manga-hero  { left: 46vw; top: -8vh; width: 190px; }
-      .s-manga-sword { left: -12vw; top: 32vh; width: 190px; }
-      .s-jojo        { left: -8vw; top: 72vh; width: 190px; }
-      .s-bandframed  { left: 45vw; top: 84vh; width: 220px; }
-      .s-symbol      { opacity: 0.12; }
-      .s-rose        { opacity: 0.18; }
-      .s-tottenham   { opacity: 0.16; }
-      .s-elsalvador  { opacity: 0.16; }
-    }
 
     main{
       width:100%;
@@ -333,25 +281,6 @@
 
 <body>
 
-  <!-- SCATTERED COLLAGE LAYER (USES YOUR EXACT FILENAMES) -->
-  <div class="stickers" aria-hidden="true">
-    <img class="sticker soft s-manga-hero"  src="assets/gallery/manga-hero.png" alt="">
-    <img class="sticker s-manga-sword"      src="assets/gallery/manga-sword.webp" alt="">
-    <img class="sticker s-pokemon"          src="assets/gallery/pokemon.png" alt="">
-    <img class="sticker s-baldwin"          src="assets/gallery/james-baldwin.webp" alt="">
-    <img class="sticker s-jojo"             src="assets/gallery/jojo-art.png" alt="">
-    <img class="sticker s-bandbw"           src="assets/gallery/band-bw.webp" alt="">
-    <img class="sticker s-fka"              src="assets/gallery/fka-twigs.avif" alt="">
-    <img class="sticker s-bandframed"       src="assets/gallery/band-framed.png" alt="">
-
-    <img class="sticker faint s-tottenham"  src="assets/gallery/tottenham.png" alt="">
-    <img class="sticker faint s-elsalvador" src="assets/gallery/elsalvador.webp" alt="">
-    <img class="sticker faint s-symbol"     src="assets/gallery/symbol-black.png" alt="">
-
-    <!-- Rose “fake transparency”: screen makes black vanish on dark backgrounds -->
-    <img class="sticker faint screen s-rose" src="assets/gallery/rose.png" alt="">
-  </div>
-
   <main>
     <div class="header">
       <img class="pfp" src="assets/profile.webp" alt="Profile photo">
@@ -363,8 +292,8 @@
     <div class="chips" aria-label="Quick info">
       <div class="chip">he/him</div>
       <div class="chip">20</div>
-      <div class="chip">Baltimore</div>
-      <div class="chip">EN / ES</div>
+      <div class="chip">baltimore</div>
+      <div class="chip">en/es</div>
     </div>
 
     <section class="links" aria-label="Social links">
@@ -470,6 +399,80 @@
         <img src="assets/jojos.jpg" alt="">
       </a>
     </div>
+
+    <!-- LISTENING TO -->
+<div class="sectionTitle">Listening To</div>
+<div class="listenGrid" aria-label="Music player">
+  <!-- Track 1 -->
+  <div class="trackCard" data-track>
+    <img class="albumCover" src="assets/englishsettlement-logo.jpg" alt="English Settlement cover">
+    <div class="trackMeta">
+      <p class="trackName">Jason and the Argonauts</p>
+      <p class="trackSub">XTC • <em>English Settlement</em></p>
+
+      <div class="playerRow">
+        <button class="playBtn" type="button" aria-label="Play/Pause">
+          <span class="playIcon">▶</span>
+        </button>
+        <input class="scrub" type="range" min="0" max="100" value="0" step="0.1" aria-label="Seek">
+      </div>
+
+      <div class="timeRow">
+        <span class="curTime">0:00</span>
+        <span class="durTime">0:00</span>
+      </div>
+
+      <audio preload="metadata" src="assets/audio/jason-and-the-argonauts.mp3"></audio>
+    </div>
+  </div>
+
+  <!-- Track 2 -->
+  <div class="trackCard" data-track>
+    <img class="albumCover" src="assets/bizarreride-logo.jpg" alt="Bizarre Ride II the Pharcyde cover">
+    <div class="trackMeta">
+      <p class="trackName">Otha Fish</p>
+      <p class="trackSub">The Pharcyde • <em>Bizarre Ride II the Pharcyde</em></p>
+
+      <div class="playerRow">
+        <button class="playBtn" type="button" aria-label="Play/Pause">
+          <span class="playIcon">▶</span>
+        </button>
+        <input class="scrub" type="range" min="0" max="100" value="0" step="0.1" aria-label="Seek">
+      </div>
+
+      <div class="timeRow">
+        <span class="curTime">0:00</span>
+        <span class="durTime">0:00</span>
+      </div>
+
+      <audio preload="metadata" src="assets/audio/otha-fish.mp3"></audio>
+    </div>
+  </div>
+
+  <!-- Track 3 -->
+  <div class="trackCard" data-track>
+    <img class="albumCover" src="assets/wallsocket-logo.webp" alt="Wallsocket cover">
+    <div class="trackMeta">
+      <p class="trackName">Locals (Girls like us)</p>
+      <p class="trackSub">underscores • <em>Wallsocket</em></p>
+
+      <div class="playerRow">
+        <button class="playBtn" type="button" aria-label="Play/Pause">
+          <span class="playIcon">▶</span>
+        </button>
+        <input class="scrub" type="range" min="0" max="100" value="0" step="0.1" aria-label="Seek">
+      </div>
+
+      <div class="timeRow">
+        <span class="curTime">0:00</span>
+        <span class="durTime">0:00</span>
+      </div>
+
+      <audio preload="metadata" src="assets/audio/locals-girls-like-us.mp3"></audio>
+    </div>
+  </div>
+</div>
+
 
     <footer>✦ built with Cloudflare Pages ✦</footer>
   </main>
