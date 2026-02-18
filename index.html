@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Roberto</title>
 
-  <!-- Open Graph -->
   <meta property="og:type" content="website">
   <meta property="og:title" content="Roberto">
   <meta property="og:description" content="The New Page">
@@ -14,7 +13,6 @@
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
 
-  <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Roberto">
   <meta name="twitter:description" content="The New Page">
@@ -44,27 +42,83 @@
       min-height:100vh;
       font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
       color:#f2f2f2;
-      background: transparent;
 
       display:flex;
       justify-content:center;
       align-items:flex-start;
       padding:48px 16px;
       position: relative;
+      background: transparent;
     }
 
     body::before{
       content:"";
       position: fixed;
       inset: 0;
-      z-index: -1;
-
+      z-index: -3;
       background:
         radial-gradient(circle at center, rgba(11,16,32,0.35) 0%, rgba(0,0,0,0.85) 70%),
         linear-gradient(var(--overlay), var(--overlay)),
         url("assets/bg.png") center 58% / cover no-repeat;
-
       transform: translateZ(0);
+    }
+
+    /* ===== FLOATING COLLAGE (SCATTERED ACROSS PAGE) ===== */
+    .stickers{
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 50; /* IMPORTANT: above the main card so you can actually see them */
+      overflow: hidden;
+    }
+
+    .sticker{
+      position: absolute;
+      pointer-events: none;
+      user-select: none;
+      -webkit-user-drag: none;
+      opacity: 0.95;
+      transform-origin: center;
+      filter: drop-shadow(0 10px 22px rgba(0,0,0,0.35));
+    }
+
+    /* blend helpers */
+    .faint { opacity: 0.22; filter: drop-shadow(0 8px 18px rgba(0,0,0,0.25)); }
+    .screen { mix-blend-mode: screen; }     /* makes BLACK disappear */
+    .multiply { mix-blend-mode: multiply; } /* makes WHITE disappear */
+    .soft { opacity: 0.55; }
+
+    /*
+      SCATTER POSITIONS (edit these to move stuff)
+      Tip: rotate() + slight size differences = more natural “clump”.
+    */
+    .s-manga-hero   { left: 52vw; top: -6vh; width: 220px; transform: rotate(6deg); }
+    .s-manga-sword  { left: 5vw;  top: 26vh; width: 220px; transform: rotate(-7deg); }
+    .s-jojo         { left: 10vw; top: 63vh; width: 240px; transform: rotate(8deg); }
+    .s-pokemon      { left: 37vw; top: 18vh; width: 185px; transform: rotate(11deg); }
+    .s-baldwin      { left: 65vw; top: 28vh; width: 170px; transform: rotate(-5deg); }
+    .s-bandbw       { left: 42vw; top: 48vh; width: 240px; transform: rotate(-2deg); }
+    .s-fka          { left: 72vw; top: 57vh; width: 190px; transform: rotate(4deg); }
+    .s-bandframed   { left: 55vw; top: 78vh; width: 260px; transform: rotate(-6deg); }
+
+    /* background-ish stickers */
+    .s-tottenham    { right: -60px; top: 10vh; width: 230px; transform: rotate(-10deg); }
+    .s-elsalvador   { left: -40px;  top: 10vh; width: 190px; transform: rotate(12deg); }
+    .s-symbol       { right: -120px; bottom: -140px; width: 380px; transform: rotate(8deg); }
+
+    /* Rose: use SCREEN to “fake” transparency on dark bg */
+    .s-rose         { left: -70px; bottom: 16vh; width: 260px; transform: rotate(10deg); }
+
+    /* Mobile adjustments */
+    @media (max-width: 560px){
+      .s-manga-hero  { left: 46vw; top: -8vh; width: 190px; }
+      .s-manga-sword { left: -12vw; top: 32vh; width: 190px; }
+      .s-jojo        { left: -8vw; top: 72vh; width: 190px; }
+      .s-bandframed  { left: 45vw; top: 84vh; width: 220px; }
+      .s-symbol      { opacity: 0.12; }
+      .s-rose        { opacity: 0.18; }
+      .s-tottenham   { opacity: 0.16; }
+      .s-elsalvador  { opacity: 0.16; }
     }
 
     main{
@@ -77,10 +131,9 @@
       padding: 24px;
       box-shadow: 0 10px 40px rgba(0,0,0,0.35);
       position: relative;
-      overflow: hidden;
+      z-index: 10; /* below stickers layer */
     }
 
-    /* Header */
     .header{
       display:flex;
       gap:16px;
@@ -97,13 +150,6 @@
       flex: 0 0 auto;
     }
 
-    .nameRow{
-      display:flex;
-      align-items:baseline;
-      gap:10px;
-      flex-wrap:wrap;
-    }
-
     .displayName{
       font-size: 2.15rem;
       font-weight: 600;
@@ -112,7 +158,6 @@
       margin:0;
     }
 
-    /* Chips */
     .chips{
       display:flex;
       flex-wrap:wrap;
@@ -130,7 +175,6 @@
       letter-spacing: 0.1px;
     }
 
-    /* Section titles */
     .sectionTitle{
       margin: 18px 0 10px;
       font-size: 0.78rem;
@@ -139,7 +183,6 @@
       color: rgba(255,255,255,0.55);
     }
 
-    /* Link buttons */
     .links{
       display:flex;
       flex-direction:column;
@@ -152,26 +195,18 @@
       align-items:center;
       justify-content:space-between;
       gap:12px;
-
       padding:14px 14px;
       border-radius:14px;
       text-decoration:none;
       color:#ffffff;
-
       background: var(--button);
       border:1px solid var(--border);
-
       transition: background 0.2s ease, transform 0.15s ease;
     }
 
     a.button:hover{
       background: var(--button-hover);
       transform: translateY(-1px);
-    }
-
-    a.button:focus{
-      outline: 3px solid rgba(255,255,255,0.40);
-      outline-offset: 2px;
     }
 
     .leftWrap{
@@ -181,7 +216,6 @@
       min-width: 0;
     }
 
-    /* Social logos */
     .socialLogo{
       width:22px;
       height:22px;
@@ -206,7 +240,6 @@
       flex:0 0 auto;
     }
 
-    /* Extended bio */
     .bioBox{
       background: rgba(255,255,255,0.08);
       border:1px solid rgba(255,255,255,0.12);
@@ -217,7 +250,6 @@
       font-size: 0.98rem;
     }
 
-    /* Media cards (Currently) */
     .mediaGrid{
       display:flex;
       flex-direction:column;
@@ -246,8 +278,6 @@
       background: rgba(0,0,0,0.15);
     }
 
-    .mediaText{ min-width:0; }
-
     .mediaTitle{
       margin:0;
       font-size: 1.05rem;
@@ -260,131 +290,7 @@
       font-size: 0.98rem;
     }
 
-    /* Listening To */
-    .listenGrid{
-      display:flex;
-      flex-direction:column;
-      gap:12px;
-    }
-
-    .trackCard{
-      display:grid;
-      grid-template-columns: 76px 1fr;
-      gap:14px;
-      align-items:center;
-
-      padding:14px;
-      border-radius:16px;
-      background: rgba(255,255,255,0.10);
-      border:1px solid rgba(255,255,255,0.12);
-    }
-
-    .albumCover{
-      width:76px;
-      height:76px;
-      border-radius:14px;
-      object-fit: cover;
-      border:1px solid rgba(255,255,255,0.14);
-      display:block;
-      background: rgba(0,0,0,0.15);
-    }
-
-    .trackMeta{ min-width:0; }
-
-    .trackName{
-      margin:0;
-      font-size: 1.03rem;
-      font-weight: 600;
-      line-height: 1.2;
-    }
-
-    .trackSub{
-      margin:4px 0 10px;
-      color: var(--text-dim);
-      font-size: 0.95rem;
-      line-height: 1.2;
-    }
-
-    .playerRow{
-      display:flex;
-      align-items:center;
-      gap:10px;
-    }
-
-    .playBtn{
-      width:34px;
-      height:34px;
-      border-radius:12px;
-      border:1px solid rgba(255,255,255,0.18);
-      background: rgba(255,255,255,0.10);
-      color:#fff;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      cursor:pointer;
-      flex:0 0 auto;
-      transition: transform .12s ease, background .18s ease;
-      user-select:none;
-      -webkit-tap-highlight-color: transparent;
-    }
-    .playBtn:hover{ transform: translateY(-1px); background: rgba(255,255,255,0.16); }
-    .playIcon{ font-size: 0.95rem; opacity: 0.92; }
-
-    /* Range input: consistent & reliably clickable */
-    .scrub{
-      width:100%;
-      accent-color: rgba(255,255,255,0.75);
-      position: relative;
-      z-index: 5;
-      pointer-events: auto;
-      cursor: pointer;
-      touch-action: none;
-      -webkit-appearance: none;
-      appearance: none;
-      height: 18px;
-      background: transparent;
-      padding: 0; margin: 0;
-    }
-
-    .scrub::-webkit-slider-runnable-track{
-      height: 4px;
-      border-radius: 999px;
-      background: rgba(255,255,255,0.22);
-    }
-    .scrub::-webkit-slider-thumb{
-      -webkit-appearance: none;
-      appearance: none;
-      width: 12px;
-      height: 12px;
-      margin-top: -4px;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.85);
-      border: 1px solid rgba(0,0,0,0.25);
-    }
-
-    .scrub::-moz-range-track{
-      height: 4px;
-      border-radius: 999px;
-      background: rgba(255,255,255,0.22);
-    }
-    .scrub::-moz-range-thumb{
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.85);
-      border: 1px solid rgba(0,0,0,0.25);
-    }
-
-    .timeRow{
-      display:flex;
-      justify-content:space-between;
-      margin-top:6px;
-      color: var(--text-dimmer);
-      font-size: 0.82rem;
-      letter-spacing: 0.02em;
-    }
-
-    /* ===== Image-only strips (Albums / Animanga) ===== */
+    /* Image-only strips */
     .strip{
       display:flex;
       gap:14px;
@@ -393,9 +299,6 @@
       scroll-snap-type: x mandatory;
       -webkit-overflow-scrolling: touch;
     }
-    .strip::-webkit-scrollbar{ height: 10px; }
-    .strip::-webkit-scrollbar-thumb{ background: rgba(255,255,255,0.12); border-radius: 999px; }
-
     .tile{
       scroll-snap-align: start;
       flex: 0 0 122px;
@@ -408,92 +311,7 @@
       transition: transform .15s ease, background .2s ease;
     }
     .tile:hover{ transform: translateY(-1px); background: rgba(255,255,255,0.12); }
-
-    .tile img{
-      width:100%;
-      height:100%;
-      object-fit: cover;
-      display:block;
-    }
-
-    /* ===== Gallery (hero + masonry + stickers) ===== */
-    .galleryWrap{
-      position: relative;
-      border-radius: 18px;
-    }
-
-    .heroImage{
-      width:100%;
-      display:block;
-      border-radius: 18px;
-      border:1px solid rgba(255,255,255,0.12);
-      background: rgba(255,255,255,0.06);
-      margin-bottom: 14px;
-    }
-
-    .masonry{
-      column-count: 2;
-      column-gap: 14px;
-    }
-    @media (min-width: 560px){
-      .masonry{ column-count: 3; }
-    }
-
-    .masonry a{
-      display: inline-block;
-      width:100%;
-      margin: 0 0 14px;
-      break-inside: avoid;
-      -webkit-column-break-inside: avoid;
-      text-decoration: none;
-    }
-
-    .masonry img{
-      width:100%;
-      height:auto;
-      display:block;
-      border-radius: 16px;
-      border:1px solid rgba(255,255,255,0.12);
-      background: rgba(255,255,255,0.06);
-    }
-
-    /* Sticker layer: subtle, behind content */
-    .sticker{
-      position:absolute;
-      pointer-events:none;
-      opacity:0.14;
-      filter: blur(0.2px);
-      transform: translateZ(0);
-      z-index: 0;
-    }
-    .sticker.tottenham{
-      top: 8px;
-      right: -52px;
-      width: 200px;
-      transform: rotate(-10deg);
-    }
-    .sticker.rose{
-      bottom: 110px;
-      left: -44px;
-      width: 165px;
-      transform: rotate(8deg);
-    }
-    .sticker.flag{
-      top: 320px;
-      right: -70px;
-      width: 160px;
-      transform: rotate(10deg);
-      opacity: 0.10;
-    }
-    .sticker.symbol{
-      bottom: -90px;
-      right: -90px;
-      width: 260px;
-      opacity: 0.08;
-    }
-
-    /* Keep gallery content above stickers */
-    .galleryContent{ position: relative; z-index: 1; }
+    .tile img{ width:100%; height:100%; object-fit: cover; display:block; }
 
     footer{
       margin-top:18px;
@@ -505,32 +323,43 @@
     @media (max-width: 480px){
       body{ padding: 28px 12px; }
       main{ padding: 22px; }
-
       .displayName{ font-size: 2.0rem; }
       .pfp{ width:68px; height:68px; border-radius:16px; }
-
       .mediaThumb{ width:86px; height:124px; }
-      .trackCard{ grid-template-columns: 72px 1fr; }
-      .albumCover{ width:72px; height:72px; }
-
       .tile{ flex-basis: 112px; height: 112px; }
     }
   </style>
 </head>
 
 <body>
+
+  <!-- SCATTERED COLLAGE LAYER (USES YOUR EXACT FILENAMES) -->
+  <div class="stickers" aria-hidden="true">
+    <img class="sticker soft s-manga-hero"  src="assets/gallery/manga-hero.png" alt="">
+    <img class="sticker s-manga-sword"      src="assets/gallery/manga-sword.webp" alt="">
+    <img class="sticker s-pokemon"          src="assets/gallery/pokemon.png" alt="">
+    <img class="sticker s-baldwin"          src="assets/gallery/james-baldwin.webp" alt="">
+    <img class="sticker s-jojo"             src="assets/gallery/jojo-art.png" alt="">
+    <img class="sticker s-bandbw"           src="assets/gallery/band-bw.webp" alt="">
+    <img class="sticker s-fka"              src="assets/gallery/fka-twigs.avif" alt="">
+    <img class="sticker s-bandframed"       src="assets/gallery/band-framed.png" alt="">
+
+    <img class="sticker faint s-tottenham"  src="assets/gallery/tottenham.png" alt="">
+    <img class="sticker faint s-elsalvador" src="assets/gallery/elsalvador.webp" alt="">
+    <img class="sticker faint s-symbol"     src="assets/gallery/symbol-black.png" alt="">
+
+    <!-- Rose “fake transparency”: screen makes black vanish on dark backgrounds -->
+    <img class="sticker faint screen s-rose" src="assets/gallery/rose.png" alt="">
+  </div>
+
   <main>
-    <!-- HEADER -->
     <div class="header">
       <img class="pfp" src="assets/profile.webp" alt="Profile photo">
       <div>
-        <div class="nameRow">
-          <h1 class="displayName">Roberto 💿</h1>
-        </div>
+        <h1 class="displayName">Roberto 💿</h1>
       </div>
     </div>
 
-    <!-- CHIPS -->
     <div class="chips" aria-label="Quick info">
       <div class="chip">he/him</div>
       <div class="chip">20</div>
@@ -538,7 +367,6 @@
       <div class="chip">EN / ES</div>
     </div>
 
-    <!-- LINKS -->
     <section class="links" aria-label="Social links">
       <a class="button" href="https://twitter.com/egemago" target="_blank" rel="noopener">
         <span class="leftWrap">
@@ -581,19 +409,16 @@
       </a>
     </section>
 
-    <!-- EXTENDED BIO -->
     <div class="sectionTitle">Extended Bio</div>
     <div class="bioBox">
-      My name's Roberto. I mainly discuss music, but I love books, film, anime, manga, the gym, and Tottenham Hotspur.
-      I was born in El Salvador, but have lived in Baltimore for most of my life. I am currently an Accounting and Finance major and a studying socialist.
+      mainly dicuss music, but i love film, literature, animanga, and football. majoring in accounting and finance. studying socialism. 
     </div>
 
-    <!-- CURRENTLY (header to keep bio from "running into" the section) -->
     <div class="sectionTitle">Currently</div>
     <div class="mediaGrid" aria-label="Currently reading and watching">
       <div class="mediaCard">
         <img class="mediaThumb" src="assets/wuthering-heights.jpeg" alt="Cover of Wuthering Heights by Emily Brontë">
-        <div class="mediaText">
+        <div>
           <p class="mediaTitle">Currently Reading</p>
           <p class="mediaSub">Wuthering Heights by Emily Brontë</p>
         </div>
@@ -601,90 +426,15 @@
 
       <div class="mediaCard">
         <img class="mediaThumb" src="assets/twin-peaks.jpeg" alt="Twin Peaks">
-        <div class="mediaText">
+        <div>
           <p class="mediaTitle">Currently Rewatching</p>
           <p class="mediaSub">Twin Peaks</p>
         </div>
       </div>
     </div>
 
-    <!-- LISTENING TO -->
-    <div class="sectionTitle">Listening To</div>
-    <div class="listenGrid" aria-label="Music player">
-      <!-- Track 1 -->
-      <div class="trackCard" data-track>
-        <img class="albumCover" src="assets/englishsettlement-logo.jpg" alt="English Settlement cover">
-        <div class="trackMeta">
-          <p class="trackName">Jason and the Argonauts</p>
-          <p class="trackSub">XTC • <em>English Settlement</em></p>
-
-          <div class="playerRow">
-            <button class="playBtn" type="button" aria-label="Play/Pause">
-              <span class="playIcon">▶</span>
-            </button>
-            <input class="scrub" type="range" min="0" max="100" value="0" step="0.1" aria-label="Seek">
-          </div>
-
-          <div class="timeRow">
-            <span class="curTime">0:00</span>
-            <span class="durTime">0:00</span>
-          </div>
-
-          <audio preload="metadata" src="assets/audio/jason-and-the-argonauts.mp3"></audio>
-        </div>
-      </div>
-
-      <!-- Track 2 -->
-      <div class="trackCard" data-track>
-        <img class="albumCover" src="assets/bizarreride-logo.jpg" alt="Bizarre Ride II the Pharcyde cover">
-        <div class="trackMeta">
-          <p class="trackName">Otha Fish</p>
-          <p class="trackSub">The Pharcyde • <em>Bizarre Ride II the Pharcyde</em></p>
-
-          <div class="playerRow">
-            <button class="playBtn" type="button" aria-label="Play/Pause">
-              <span class="playIcon">▶</span>
-            </button>
-            <input class="scrub" type="range" min="0" max="100" value="0" step="0.1" aria-label="Seek">
-          </div>
-
-          <div class="timeRow">
-            <span class="curTime">0:00</span>
-            <span class="durTime">0:00</span>
-          </div>
-
-          <audio preload="metadata" src="assets/audio/otha-fish.mp3"></audio>
-        </div>
-      </div>
-
-      <!-- Track 3 -->
-      <div class="trackCard" data-track>
-        <img class="albumCover" src="assets/wallsocket-logo.webp" alt="Wallsocket cover">
-        <div class="trackMeta">
-          <p class="trackName">Locals (Girls like us)</p>
-          <p class="trackSub">underscores • <em>Wallsocket</em></p>
-
-          <div class="playerRow">
-            <button class="playBtn" type="button" aria-label="Play/Pause">
-              <span class="playIcon">▶</span>
-            </button>
-            <input class="scrub" type="range" min="0" max="100" value="0" step="0.1" aria-label="Seek">
-          </div>
-
-          <div class="timeRow">
-            <span class="curTime">0:00</span>
-            <span class="durTime">0:00</span>
-          </div>
-
-          <audio preload="metadata" src="assets/audio/locals-girls-like-us.mp3"></audio>
-        </div>
-      </div>
-    </div>
-
-    <!-- FAVORITE ALBUMS (image-only, links preserved) -->
     <div class="sectionTitle">Favorite Albums</div>
     <div class="strip" aria-label="Favorite albums (links to Rate Your Music)">
-      <!-- NOTE: If any of these RYM URLs don't open correctly, tell me and I’ll adjust the exact slugs. -->
       <a class="tile" href="https://rateyourmusic.com/release/album/geordie-greep/the-new-sound/" target="_blank" rel="noopener" aria-label="The New Sound (Geordie Greep)">
         <img src="assets/new-sound.png" alt="">
       </a>
@@ -702,7 +452,6 @@
       </a>
     </div>
 
-    <!-- FAVORITE ANIMANGA (image-only, AniList links) -->
     <div class="sectionTitle">Favorite Animanga</div>
     <div class="strip" aria-label="Favorite animanga (links to AniList)">
       <a class="tile" href="https://anilist.co/anime/30/Shin-Seiki-Evangelion" target="_blank" rel="noopener" aria-label="Neon Genesis Evangelion (AniList)">
@@ -717,211 +466,18 @@
       <a class="tile" href="https://anilist.co/manga/105778/Chainsaw-Man" target="_blank" rel="noopener" aria-label="Chainsaw Man (AniList)">
         <img src="assets/chainsaw-man.jpg" alt="">
       </a>
-      <a class="tile" href="https://anilist.co/manga/55515/JoJo-no-Kimyou-na-Bouken-JoJolion/" target="_blank" rel="noopener" aria-label="JoJo's Bizarre Adventure: JoJolion (AniList)">
+      <a class="tile" href="https://anilist.co/manga/55515/JoJo-no-Kimyou-na-Bouken-JoJolion/" target="_blank" rel="noopener" aria-label="JoJolion (AniList)">
         <img src="assets/jojos.jpg" alt="">
       </a>
-    </div>
-
-    <!-- GALLERY (your uploaded files in assets/gallery/) -->
-    <div class="sectionTitle">Gallery</div>
-    <div class="galleryWrap" aria-label="Image collage">
-      <!-- sticker layer -->
-      <img class="sticker tottenham" src="assets/gallery/tottenham.png" alt="" aria-hidden="true">
-      <img class="sticker rose" src="assets/gallery/rose.png" alt="" aria-hidden="true">
-      <img class="sticker flag" src="assets/gallery/elsalvador.webp" alt="" aria-hidden="true">
-      <img class="sticker symbol" src="assets/gallery/symbol-black.png" alt="" aria-hidden="true">
-
-      <div class="galleryContent">
-        <!-- hero -->
-        <img class="heroImage" src="assets/gallery/manga-hero.png" alt="" loading="lazy">
-
-        <!-- masonry -->
-        <div class="masonry" aria-label="Gallery images">
-          <a href="assets/gallery/manga-sword.webp" target="_blank" rel="noopener" aria-label="Open image">
-            <img src="assets/gallery/manga-sword.webp" alt="" loading="lazy">
-          </a>
-
-          <a href="assets/gallery/jojo-art.png" target="_blank" rel="noopener" aria-label="Open image">
-            <img src="assets/gallery/jojo-art.png" alt="" loading="lazy">
-          </a>
-
-          <a href="assets/gallery/pokemon.png" target="_blank" rel="noopener" aria-label="Open image">
-            <img src="assets/gallery/pokemon.png" alt="" loading="lazy">
-          </a>
-
-          <a href="assets/gallery/band-bw.webp" target="_blank" rel="noopener" aria-label="Open image">
-            <img src="assets/gallery/band-bw.webp" alt="" loading="lazy">
-          </a>
-
-          <a href="assets/gallery/james-baldwin.webp" target="_blank" rel="noopener" aria-label="Open image">
-            <img src="assets/gallery/james-baldwin.webp" alt="" loading="lazy">
-          </a>
-
-          <a href="assets/gallery/fka-twigs.avif" target="_blank" rel="noopener" aria-label="Open image">
-            <img src="assets/gallery/fka-twigs.avif" alt="" loading="lazy">
-          </a>
-
-          <a href="assets/gallery/band-framed.png" target="_blank" rel="noopener" aria-label="Open image">
-            <img src="assets/gallery/band-framed.png" alt="" loading="lazy">
-          </a>
-        </div>
-      </div>
     </div>
 
     <footer>✦ built with Cloudflare Pages ✦</footer>
   </main>
 
   <script>
-    // One track plays at a time + robust desktop/mobile seek.
-    const tracks = Array.from(document.querySelectorAll('[data-track]'));
-
-    const fmt = (t) => {
-      if (!isFinite(t) || t < 0) return "0:00";
-      const m = Math.floor(t / 60);
-      const s = Math.floor(t % 60);
-      return `${m}:${String(s).padStart(2, "0")}`;
-    };
-
-    function setButton(card, playing){
-      const icon = card.querySelector('.playIcon');
-      icon.textContent = playing ? "❚❚" : "▶";
-    }
-
-    function stopOthers(exceptAudio){
-      tracks.forEach(card => {
-        const a = card.querySelector('audio');
-        if (a !== exceptAudio) {
-          a.pause();
-          a.currentTime = 0;
-
-          const scrub = card.querySelector('.scrub');
-          const cur = card.querySelector('.curTime');
-
-          scrub.value = 0;
-          cur.textContent = "0:00";
-          setButton(card, false);
-        }
-      });
-    }
-
-    function ensureMetadata(audio, durEl) {
-      return new Promise((resolve) => {
-        if (audio.readyState >= 1 && isFinite(audio.duration) && audio.duration > 0) {
-          if (durEl) durEl.textContent = fmt(audio.duration);
-          resolve();
-          return;
-        }
-
-        const onMeta = () => {
-          if (durEl) durEl.textContent = fmt(audio.duration);
-          resolve();
-        };
-
-        audio.addEventListener('loadedmetadata', onMeta, { once: true });
-
-        try { audio.load(); } catch (_) {}
-      });
-    }
-
-    tracks.forEach(card => {
-      const audio = card.querySelector('audio');
-      const playBtn = card.querySelector('.playBtn');
-      const scrub = card.querySelector('.scrub');
-      const cur = card.querySelector('.curTime');
-      const dur = card.querySelector('.durTime');
-
-      let isSeeking = false;
-
-      ensureMetadata(audio, dur);
-
-      audio.addEventListener('timeupdate', () => {
-        if (!isFinite(audio.duration) || audio.duration <= 0) return;
-
-        if (!isSeeking) {
-          const pct = (audio.currentTime / audio.duration) * 100;
-          scrub.value = String(pct);
-        }
-        cur.textContent = fmt(audio.currentTime);
-      });
-
-      audio.addEventListener('ended', () => {
-        setButton(card, false);
-        scrub.value = 0;
-        cur.textContent = "0:00";
-      });
-
-      playBtn.addEventListener('click', async () => {
-        if (audio.paused) {
-          stopOthers(audio);
-          await ensureMetadata(audio, dur);
-
-          try {
-            await audio.play();
-            setButton(card, true);
-          } catch (e) {
-            console.warn("Audio play failed:", e);
-            setButton(card, false);
-          }
-        } else {
-          audio.pause();
-          setButton(card, false);
-        }
-      });
-
-      function seekFromPointer(e){
-        const rect = scrub.getBoundingClientRect();
-        const clientX = (e.touches && e.touches[0]) ? e.touches[0].clientX : e.clientX;
-        const x = Math.min(Math.max(clientX - rect.left, 0), rect.width);
-        const pct = rect.width ? (x / rect.width) : 0;
-
-        audio.currentTime = pct * audio.duration;
-        scrub.value = String(pct * 100);
-        cur.textContent = fmt(audio.currentTime);
-      }
-
-      scrub.addEventListener('input', async () => {
-        await ensureMetadata(audio, dur);
-        if (!isFinite(audio.duration) || audio.duration <= 0) return;
-
-        const pct = Number(scrub.value) / 100;
-        audio.currentTime = pct * audio.duration;
-        cur.textContent = fmt(audio.currentTime);
-      });
-
-      scrub.addEventListener('pointerdown', async (e) => {
-        isSeeking = true;
-        scrub.setPointerCapture?.(e.pointerId);
-
-        await ensureMetadata(audio, dur);
-        if (!isFinite(audio.duration) || audio.duration <= 0) return;
-
-        seekFromPointer(e);
-      });
-
-      scrub.addEventListener('pointermove', (e) => {
-        if (!isSeeking) return;
-        if (!isFinite(audio.duration) || audio.duration <= 0) return;
-        seekFromPointer(e);
-      });
-
-      scrub.addEventListener('pointerup', (e) => {
-        if (!isSeeking) return;
-        if (isFinite(audio.duration) && audio.duration > 0) {
-          seekFromPointer(e);
-        }
-        isSeeking = false;
-        scrub.releasePointerCapture?.(e.pointerId);
-      });
-
-      scrub.addEventListener('pointercancel', () => {
-        isSeeking = false;
-      });
-
-      scrub.addEventListener('click', async (e) => {
-        await ensureMetadata(audio, dur);
-        if (!isFinite(audio.duration) || audio.duration <= 0) return;
-        seekFromPointer(e);
-      });
+    // If an image fails to load, hide it (prevents ugly broken icons).
+    document.querySelectorAll('img').forEach(img => {
+      img.addEventListener('error', () => { img.style.display = 'none'; }, { once: true });
     });
   </script>
 </body>
